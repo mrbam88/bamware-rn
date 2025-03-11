@@ -1,3 +1,5 @@
+// In Button.tsx and Text.tsx
+import React from "react"
 import { ComponentType } from "react"
 import {
   Pressable,
@@ -8,8 +10,8 @@ import {
   ViewStyle,
 } from "react-native"
 import type { ThemedStyle, ThemedStyleArray } from "@/theme"
-import { $styles } from "../theme"
-import { Text, TextProps } from "./Text"
+import { $styles } from "../../theme"
+import { Text, TextProps } from "../Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 
 type Presets = "default" | "filled" | "reversed"

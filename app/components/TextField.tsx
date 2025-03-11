@@ -1,4 +1,5 @@
-import { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from "react"
+import React, { forwardRef, useImperativeHandle, useRef, useState } from "react"
+// Your other imports..
 import {
   ImageStyle,
   StyleProp,

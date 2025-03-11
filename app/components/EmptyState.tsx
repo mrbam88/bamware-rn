@@ -1,6 +1,7 @@
+import React from "react"
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle, View, ViewStyle } from "react-native"
 
-import { Button, ButtonProps } from "./Button"
+import { Button, ButtonProps } from "./button/Button"
 import { Text, TextProps } from "./Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 import type { ThemedStyle } from "@/theme"
