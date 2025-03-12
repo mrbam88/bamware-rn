@@ -1,35 +1,42 @@
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Text, Screen } from "@/components"
+import { Text, Screen } from "../../components"
 import { isRTL } from "@/i18n"
-import { AppStackScreenProps } from "../navigators"
+import { AppStackScreenProps } from "../../navigators"
 import { $styles, type ThemedStyle } from "@/theme"
-import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import { useAppTheme } from "@/utils/useAppTheme"
+import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
+import { useAppTheme } from "../../utils/useAppTheme"
 
-const welcomeLogo = require("../../assets/images/logo.png")
-const welcomeFace = require("../../assets/images/welcome-face.png")
+const welcomeLogo = require("../../../assets/images/logo.png")
+const welcomeFace = require("../../../assets/images/welcome-face.png")
 
 interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen() {
   const { themed, theme } = useAppTheme()
-
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
     <Screen preset="fixed" contentContainerStyle={$styles.flex1}>
       <View style={themed($topContainer)}>
-        <Image style={themed($welcomeLogo)} source={welcomeLogo} resizeMode="contain" />
+        <Image
+          testID="welcome-logo" // ✅ Added testID
+          style={themed($welcomeLogo)}
+          source={welcomeLogo}
+          resizeMode="contain"
+        />
+
         <Text
-          testID="welcome-heading"
+          testID="welcome-heading" // ✅ Added testID
           style={themed($welcomeHeading)}
           tx="welcomeScreen:readyForLaunch"
           preset="heading"
         />
         <Text tx="welcomeScreen:exciting" preset="subheading" />
+
         <Image
+          testID="welcome-face" // ✅ Added testID
           style={$welcomeFace}
           source={welcomeFace}
           resizeMode="contain"
