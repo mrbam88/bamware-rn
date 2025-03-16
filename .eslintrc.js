@@ -54,4 +54,9 @@ module.exports = {
     "quotes": 0,
     "space-before-function-paren": 0,
   },
+  settings: {
+    "import/resolver": {
+      typescript: {}, // 👈 Ensures ESLint understands `paths` from `tsconfig.json`
+    },
+  },
 }

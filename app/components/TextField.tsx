@@ -13,7 +13,7 @@ import {
 import { isRTL, translate } from "@/i18n"
 import type { ThemedStyle, ThemedStyleArray } from "@/theme"
 import { $styles } from "../theme"
-import { Text, TextProps } from "./Text"
+import { Text, TextProps } from "./text/Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 
 export interface TextFieldAccessoryProps {

@@ -1,7 +1,7 @@
 import React, { createRef } from "react"
 import { render, screen } from "@testing-library/react-native"
 import { Screen } from "../Screen"
-import { Text } from "@/components/Text"
+import { Text } from "@/components/text/Text"
 import { ScrollView } from "react-native"
 import { useScrollToTop } from "@react-navigation/native" // ✅ Explicit Import
 

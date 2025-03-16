@@ -23,12 +23,12 @@ jest.mock("@/utils/useAppTheme", () => ({
       typeof style === "function"
         ? style({
             spacing: { xxl: 24, lg: 16, sm: 8, md: 12, xs: 4 },
-            colors: { palette: { neutral800: "#000" }, tint: "#f00" },
+            colors: { palette: { neutral700: "#000" }, tint: "#f00" },
           })
         : style,
     theme: {
       colors: {
-        palette: { neutral800: "#000" },
+        palette: { neutral700: "#000" },
         tint: "#f00",
       },
     },

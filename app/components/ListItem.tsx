@@ -9,7 +9,7 @@ import {
 } from "react-native"
 import { $styles } from "../theme"
 import { Icon, IconTypes } from "./Icon"
-import { Text, TextProps } from "./Text"
+import { Text, TextProps } from "./text/Text"
 import type { ThemedStyle } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
 

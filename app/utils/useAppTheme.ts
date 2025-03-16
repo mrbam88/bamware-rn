@@ -11,7 +11,7 @@ import {
 } from "@/theme"
 import * as SystemUI from "expo-system-ui"
 
-type ThemeContextType = {
+export type ThemeContextType = {
   themeScheme: ThemeContexts
   setThemeContextOverride: (newTheme: ThemeContexts) => void
 }
