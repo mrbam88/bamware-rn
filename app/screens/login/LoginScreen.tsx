@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useEffect, useRef, useState, useMemo, ComponentType, FC } from "react"
 import { observer } from "mobx-react-lite"
-import { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react"
 import { TextInput, TextStyle, ViewStyle } from "react-native"
+import { useNavigation } from "@react-navigation/native"
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "@/components"
 import { useStores } from "../../models"
 import { AppStackScreenProps } from "../../navigators"
@@ -17,6 +17,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   const [isPasswordHidden, setIsPasswordHidden] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [attemptsCount, setAttemptsCount] = useState(0)
+  const navigation = useNavigation()
+
   const {
     authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
   } = useStores()
@@ -27,11 +29,6 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   } = useAppTheme()
 
   useEffect(() => {
-    // Prefill with default credentials for Bamware app
-    setAuthEmail("user@bamware.com")
-    setPassword("bamwareSecret123")
-
-    // Cleanup on unmount
     return () => {
       setPassword("")
       setAuthEmail("")
@@ -41,16 +38,10 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   const error = isSubmitted ? validationError : ""
 
   function login() {
-    setIsSubmitted(true)
-    setAttemptsCount(attemptsCount + 1)
-
-    if (validationError) return
-
-    // Simulate token generation for Bamware app
-    setIsSubmitted(false)
-    setPassword("")
-    setAuthEmail("")
-    setAuthToken(String(Date.now()))
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "MainApp" }],
+    })
   }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
@@ -71,7 +62,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
 
   return (
     <Screen
-      preset="auto"
+      preset="fixed"
       contentContainerStyle={themed($screenContentContainer)}
       safeAreaEdges={["top", "bottom"]}
     >

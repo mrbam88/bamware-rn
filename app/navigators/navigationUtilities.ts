@@ -4,6 +4,7 @@ import {
   NavigationState,
   PartialState,
   createNavigationContainerRef,
+  CommonActions,
 } from "@react-navigation/native"
 import Config from "../config"
 import type { PersistNavigationConfig } from "../config/config.base"
@@ -50,45 +51,50 @@ const iosExit = () => false
  * @param {(routeName: string) => boolean} canExit - Function that returns whether we can exit the app.
  * @returns {void}
  */
-export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
-  // The reason we're using a ref here is because we need to be able
-  // to update the canExit function without re-setting up all the listeners
-  const canExitRef = useRef(Platform.OS !== "android" ? iosExit : canExit)
 
+export function useBackButtonHandler() {
   useEffect(() => {
-    canExitRef.current = canExit
-  }, [canExit])
-
-  useEffect(() => {
-    // We'll fire this when the back button is pressed on Android.
     const onBackPress = () => {
       if (!navigationRef.isReady()) {
+        console.log("⚠️ Navigation not ready. Ignoring back press.")
         return false
       }
 
-      // grab the current route
-      const routeName = getActiveRouteName(navigationRef.getRootState())
+      const state = navigationRef.getRootState()
+      const currentRoute = navigationRef.getCurrentRoute()?.name
 
-      // are we allowed to exit?
-      if (canExitRef.current(routeName)) {
-        // exit and let the system know we've handled the event
+      console.log(
+        "📌 Navigation State:",
+        JSON.stringify(state, null, 2), // ✅ Full navigation tree in JSON format
+      )
+
+      console.log(`🔹 Current Screen: ${currentRoute}`)
+
+      // ✅ Prevent app from exiting if inside MainApp
+      if (currentRoute === "MainApp") {
+        console.log("⛔ Back button pressed in MainApp. Blocking exit.")
+        return true
+      }
+
+      // ✅ Allow exit only on Login screen
+      if (currentRoute === "Login") {
+        console.log("🚪 Exiting app from Login screen.")
         BackHandler.exitApp()
         return true
       }
 
-      // we can't exit, so let's turn this into a back action
+      // ✅ Go back if possible
       if (navigationRef.canGoBack()) {
+        console.log("🔙 Going back to previous screen.")
         navigationRef.goBack()
         return true
       }
 
-      return false
+      console.log("❌ No back action available.")
+      return false // Default behavior
     }
 
-    // Subscribe when we come to life
     BackHandler.addEventListener("hardwareBackPress", onBackPress)
-
-    // Unsubscribe when we're done
     return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress)
   }, [])
 }
@@ -132,6 +138,8 @@ export function useNavigationPersistence(storage: Storage, persistenceKey: strin
       if (previousRouteName !== currentRouteName) {
         // track screens.
         if (__DEV__) {
+          console.log("📌 NAVIGATION DEBUG:", JSON.stringify(navigationRef.getRootState(), null, 2))
+
           console.log(currentRouteName)
         }
       }
