@@ -1,45 +1,42 @@
+// src/navigation/__test__/AppNavigator.test.tsx
+
 import React from "react"
 import { render } from "@testing-library/react-native"
 import { AppNavigator } from ".."
 import { SafeAreaProvider } from "react-native-safe-area-context"
 
-// ✅ Fix Safe Area Context Issues
+// ✅ FIXED: SafeAreaProvider mock that preserves real context
 jest.mock("react-native-safe-area-context", () => {
-  const SafeAreaContext = require("react").createContext({ top: 0, left: 0, right: 0, bottom: 0 })
+  const actual = jest.requireActual("react-native-safe-area-context")
   return {
-    SafeAreaProvider: ({ children }: { children: React.ReactNode }) => (
-      <SafeAreaContext.Provider value={{ top: 0, left: 0, right: 0, bottom: 0 }}>
-        {children}
-      </SafeAreaContext.Provider>
+    ...actual,
+    SafeAreaProvider: ({ children }) => (
+      <actual.SafeAreaProvider>{children}</actual.SafeAreaProvider>
     ),
-    SafeAreaContext,
     useSafeAreaInsets: () => ({ top: 0, left: 0, right: 0, bottom: 0 }),
     useSafeAreaFrame: () => ({ x: 0, y: 0, width: 360, height: 640 }),
   }
 })
 
-// ✅ Fix React Navigation's SafeAreaProviderCompat
 jest.mock("@react-navigation/elements", () => ({
   ...jest.requireActual("@react-navigation/elements"),
-  SafeAreaProviderCompat: ({ children }: { children: React.ReactNode }) => children,
+  SafeAreaProviderCompat: ({ children }) => children,
 }))
 
-// ✅ Fix React Native Screens (`react-native-screens`)
 jest.mock("react-native-screens", () => ({
   ...jest.requireActual("react-native-screens"),
   enableScreens: jest.fn(),
-  NativeScreen: ({ children }: { children: React.ReactNode }) => children,
-  NativeScreenContainer: ({ children }: { children: React.ReactNode }) => children,
-  ScreenStack: ({ children }: { children: React.ReactNode }) => children,
+  NativeScreen: ({ children }) => children,
+  NativeScreenContainer: ({ children }) => children,
+  ScreenStack: ({ children }) => children,
 }))
 
-// ✅ Fix `useThemeProvider` and `useAppTheme`
 jest.mock("@/utils/useAppTheme", () => ({
   useThemeProvider: jest.fn(() => ({
     themeScheme: "light",
     navigationTheme: { dark: false, colors: { background: "white" } },
     setThemeContextOverride: jest.fn(),
-    ThemeProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+    ThemeProvider: ({ children }) => <>{children}</>,
   })),
   useAppTheme: jest.fn(() => ({
     navTheme: { dark: false, colors: { background: "white" } },
@@ -47,7 +44,7 @@ jest.mock("@/utils/useAppTheme", () => ({
     theme: {
       colors: {
         background: "white",
-        palette: { neutral800: "#333" }, // ✅ Fix: Ensure `palette.neutral800` exists
+        palette: { neutral800: "#333" },
       },
     },
     themeContext: "light",
@@ -55,17 +52,17 @@ jest.mock("@/utils/useAppTheme", () => ({
   })),
 }))
 
-// ✅ Fix Navigation Utilities
 jest.mock("../navigationUtilities", () => ({
   useBackButtonHandler: jest.fn(),
   navigationRef: { current: null },
 }))
 
-// ✅ Disable MobX Observer in Tests
 jest.mock("mobx-react-lite", () => ({
   ...jest.requireActual("mobx-react-lite"),
-  observer: (component: any) => component, // Disable MobX observer
+  observer: (component) => component,
 }))
+
+// ✅ TEST CASE
 
 describe("AppNavigator", () => {
   it("renders without crashing", () => {
