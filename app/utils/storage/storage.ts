@@ -56,6 +56,7 @@ export function save(key: string, value: unknown): boolean {
     saveString(key, JSON.stringify(value))
     return true
   } catch {
+    console.log("ERROR: MMKV saving key", key)
     return false
   }
 }

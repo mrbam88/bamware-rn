@@ -14,7 +14,7 @@ const TestComponent = () => {
 describe("useStores", () => {
   it("returns a valid store", () => {
     const rootStore = RootStoreModel.create({
-      authenticationStore: { authEmail: "test@bamware.com" },
+      authenticationStore: { authEmail: "test@flexcoamobile.com" },
     })
 
     // ✅ Wrap the test inside RootStoreProvider
@@ -24,13 +24,13 @@ describe("useStores", () => {
       </RootStoreProvider>,
     )
     // ✅ Verify the store works correctly
-    expect(getByText("test@bamware.com")).toBeTruthy()
+    expect(getByText("test@flexcoamobile.com")).toBeTruthy()
   })
 })
 
 it("updates authEmail correctly", () => {
   const rootStore = RootStoreModel.create({
-    authenticationStore: { authEmail: "initial@bamware.com" },
+    authenticationStore: { authEmail: "initial@flexcoamobile.com" },
   })
 
   const { getByText, rerender } = render(
@@ -40,10 +40,10 @@ it("updates authEmail correctly", () => {
   )
 
   // ✅ Initial state check
-  expect(getByText("initial@bamware.com")).toBeTruthy()
+  expect(getByText("initial@flexcoamobile.com")).toBeTruthy()
 
   // ✅ Use the MobX action to update authEmail
-  rootStore.authenticationStore.setAuthEmail("updated@bamware.com")
+  rootStore.authenticationStore.setAuthEmail("updated@flexcoamobile.com")
 
   rerender(
     <RootStoreProvider value={rootStore}>
@@ -52,5 +52,5 @@ it("updates authEmail correctly", () => {
   )
 
   // ✅ Verify updated value
-  expect(getByText("updated@bamware.com")).toBeTruthy()
+  expect(getByText("updated@flexcoamobile.com")).toBeTruthy()
 })

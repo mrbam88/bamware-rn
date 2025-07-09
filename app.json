@@ -1,10 +1,10 @@
 {
-  "name": "rn-bamware",
-  "displayName": "rn-bamware",
+  "name": "flexcoa-mobile",
+  "displayName": "flexcoa-mobile",
   "expo": {
-    "name": "rn-bamware",
-    "slug": "rn-bamware",
-    "scheme": "rn-bamware",
+    "name": "flexcoa-mobile",
+    "slug": "flexcoa-mobile",
+    "scheme": "flexcoa-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
@@ -14,12 +14,10 @@
     },
     "newArchEnabled": true,
     "jsEngine": "hermes",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "icon": "./assets/images/app-icon-android-legacy.png",
-      "package": "com.rnbamware",
+      "package": "com.flexcoamobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/app-icon-android-adaptive-foreground.png",
         "backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
@@ -28,7 +26,7 @@
     "ios": {
       "icon": "./assets/images/app-icon-ios.png",
       "supportsTablet": true,
-      "bundleIdentifier": "com.rnbamware"
+      "bundleIdentifier": "com.flexcoamobile"
     },
     "web": {
       "favicon": "./assets/images/app-icon-web-favicon.png",

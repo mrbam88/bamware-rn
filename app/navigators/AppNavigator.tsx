@@ -1,25 +1,23 @@
-// src/navigation/AppNavigator.tsx
-
+import React from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
-import * as Screens from "@/screens"
-import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+import { useBackButtonHandler, navigationRef } from "./navigationUtilities"
 import { useThemeProvider } from "@/utils/useAppTheme"
-import { AppDrawerNavigator } from "./AppDrawerNavigator"
+import { LoginScreen } from "@/screens/login/LoginScreen"
+import { MainCoordinator } from "./MainCoordinator"
+import { useHydrateSession } from "@/hooks/useHydrateSession"
 
 const Stack = createNativeStackNavigator()
 
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={LoginScreen} options={{ unmountOnBlur: false }} />
       <Stack.Screen
-        name="Login"
-        component={Screens.LoginScreen}
-        options={{ unmountOnBlur: false }} // ✅ Keeps screen in memory
+        name="MainApp"
+        component={MainCoordinator} // Role-based navigator lives here
       />
-      <Stack.Screen name="MainApp" component={AppDrawerNavigator} />
-      <Stack.Screen name="Settings" component={Screens.WelcomeScreen} />
     </Stack.Navigator>
   )
 }
@@ -29,6 +27,10 @@ export const AppNavigator = observer((props) => {
     useThemeProvider()
 
   useBackButtonHandler()
+
+  const hydrated = useHydrateSession()
+
+  if (!hydrated) return null // Or <SplashScreen />
 
   return (
     <ThemeProvider value={{ themeScheme, setThemeContextOverride }}>

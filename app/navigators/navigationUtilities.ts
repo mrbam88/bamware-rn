@@ -56,7 +56,7 @@ export function useBackButtonHandler() {
   useEffect(() => {
     const onBackPress = () => {
       if (!navigationRef.isReady()) {
-        console.log("⚠️ Navigation not ready. Ignoring back press.")
+        console.log(" Navigation not ready. Ignoring back press.")
         return false
       }
 

@@ -1,147 +1,86 @@
-import React, { useEffect, useRef, useState, useMemo, ComponentType, FC } from "react"
-import { observer } from "mobx-react-lite"
-import { TextInput, TextStyle, ViewStyle } from "react-native"
-import { useNavigation } from "@react-navigation/native"
-import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "@/components"
-import { useStores } from "../../models"
-import { AppStackScreenProps } from "../../navigators"
-import type { ThemedStyle } from "@/theme"
-import { useAppTheme } from "@/utils/useAppTheme"
+import React, { useState } from "react"
+import { View, TextInput, Button, Text, ActivityIndicator, StyleSheet } from "react-native"
+import { loginApi } from "@/features/auth/loginApi"
+import { resetRoot } from "@/navigators/navigationUtilities"
+import { useDispatch } from "react-redux"
+import { setSession } from "@/store/slices/sessionSlice"
+import { saveSessionToStorage } from "@/features/auth/sessionStorage"
 
-interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
-
-export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
-  const passwordInputRef = useRef<TextInput>(null)
-
+export const LoginScreen = () => {
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [isPasswordHidden, setIsPasswordHidden] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [attemptsCount, setAttemptsCount] = useState(0)
-  const navigation = useNavigation()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const dispatch = useDispatch()
 
-  const {
-    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
-  } = useStores()
+  const handleLogin = async () => {
+    setLoading(true)
+    setError(null)
 
-  const {
-    themed,
-    theme: { colors },
-  } = useAppTheme()
+    try {
+      const session = await loginApi({ email, password })
+      await saveSessionToStorage(session)
+      dispatch(setSession(session))
 
-  useEffect(() => {
-    return () => {
-      setPassword("")
-      setAuthEmail("")
+      resetRoot({
+        index: 0,
+        routes: [{ name: "MainApp" }],
+      })
+    } catch (err: any) {
+      console.error("Login error:", err)
+      setError(err.message ?? "Login failed.")
+    } finally {
+      setLoading(false)
     }
-  }, [setAuthEmail])
-
-  const error = isSubmitted ? validationError : ""
-
-  function login() {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "MainApp" }],
-    })
   }
 
-  const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
-    () =>
-      function PasswordRightAccessory(props: TextFieldAccessoryProps) {
-        return (
-          <Icon
-            icon={isPasswordHidden ? "view" : "hidden"}
-            color={colors.palette.neutral800}
-            containerStyle={props.style}
-            size={20}
-            onPress={() => setIsPasswordHidden(!isPasswordHidden)}
-          />
-        )
-      },
-    [isPasswordHidden, colors.palette.neutral800],
-  )
-
   return (
-    <Screen
-      preset="fixed"
-      contentContainerStyle={themed($screenContentContainer)}
-      safeAreaEdges={["top", "bottom"]}
-    >
-      <Text
-        testID="bamware-login-heading"
-        tx="bamwareLogin:signIn"
-        preset="heading"
-        style={themed($heading)}
-      />
-      <Text tx="bamwareLogin:enterCredentials" preset="subheading" style={themed($subheading)} />
-      {attemptsCount > 2 && (
-        <Text tx="bamwareLogin:hintMessage" size="sm" weight="light" style={themed($hint)} />
-      )}
+    <View style={styles.container}>
+      <Text style={styles.heading} testID="login-heading">
+        Login
+      </Text>
 
-      <TextField
-        value={authEmail}
-        onChangeText={setAuthEmail}
-        containerStyle={themed($textField)}
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
         autoCapitalize="none"
-        autoComplete="email"
-        autoCorrect={false}
         keyboardType="email-address"
-        labelTx="bamwareLogin:emailLabel"
-        placeholderTx="bamwareLogin:emailPlaceholder"
-        helper={error}
-        status={error ? "error" : undefined}
-        onSubmitEditing={() => passwordInputRef.current?.focus()}
+        style={styles.input}
       />
 
-      <TextField
-        ref={passwordInputRef}
+      <TextInput
+        placeholder="Password"
         value={password}
         onChangeText={setPassword}
-        containerStyle={themed($textField)}
-        autoCapitalize="none"
-        autoComplete="password"
-        autoCorrect={false}
-        secureTextEntry={isPasswordHidden}
-        labelTx="bamwareLogin:passwordLabel"
-        placeholderTx="bamwareLogin:passwordPlaceholder"
-        onSubmitEditing={login}
-        RightAccessory={PasswordRightAccessory}
+        secureTextEntry
+        style={styles.input}
       />
+
+      {error && <Text style={styles.error}>{error}</Text>}
 
       <Button
-        testID="bamware-login-button"
-        tx="bamwareLogin:tapToSignIn"
-        style={themed($loginButton)}
-        preset="reversed"
-        onPress={login}
+        title={loading ? "Logging in..." : "Login"}
+        onPress={handleLogin}
+        disabled={loading}
+        testID="login-submit-button"
       />
-    </Screen>
+      {loading && <ActivityIndicator style={styles.spinner} />}
+    </View>
   )
-})
+}
 
-const $screenContentContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  paddingVertical: spacing.xxl,
-  paddingHorizontal: spacing.lg,
+const styles = StyleSheet.create({
+  container: { padding: 24, flex: 1, justifyContent: "center" },
+  heading: { fontSize: 24, marginBottom: 24, textAlign: "center" },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginBottom: 12,
+  },
+  error: { color: "red", marginBottom: 12 },
+  spinner: { marginTop: 16 },
 })
-
-const $heading: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.sm,
-})
-
-const $subheading: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.lg,
-})
-
-const $hint: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
-  color: colors.tint,
-  marginBottom: spacing.md,
-})
-
-const $textField: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  marginBottom: spacing.lg,
-})
-
-const $loginButton: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  marginTop: spacing.xs,
-})
-
-export default LoginScreen

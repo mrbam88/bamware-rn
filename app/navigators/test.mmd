@@ -1,0 +1,28 @@
+```mermaid
+flowchart TD
+  Start["App Starts"]
+  LoadMMKV["Load session from MMKV"]
+  HasSession{"Session exists?"}
+
+  AuthStack["AuthStack - Login only"]
+  LoginCall["Login → loginApi() + save session"]
+  SetSession["setSession() triggers rerender"]
+
+  MainCoordinator["MainCoordinator - role router"]
+  MatchPolicy["Match session → roleRoutingPolicy"]
+  Admin["AdminNavigator"]
+  Participant["ParticipantNavigator"]
+  Researcher["ResearcherNavigator"]
+  NoAccess["NoAccessScreen"]
+
+  Start --> LoadMMKV --> HasSession
+  HasSession -- "No" --> AuthStack
+  AuthStack --> LoginCall --> SetSession --> MainCoordinator
+  HasSession -- "Yes" --> MainCoordinator
+
+  MainCoordinator --> MatchPolicy
+  MatchPolicy --> Admin
+  MatchPolicy --> Participant
+  MatchPolicy --> Researcher
+  MatchPolicy --> NoAccess
+```

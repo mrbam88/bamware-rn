@@ -15,7 +15,9 @@ import { setupRootStore } from "./setupRootStore"
  * instantiating it, although that should be rare.
  */
 //const _rootStore = RootStoreModel.create({})
-const _rootStore = RootStoreModel.create({ authenticationStore: { authEmail: "test@bamware.com" } })
+const _rootStore = RootStoreModel.create({
+  authenticationStore: { authEmail: "test@flexcoamobile.com" },
+})
 
 /**
  * The RootStoreContext provides a way to access

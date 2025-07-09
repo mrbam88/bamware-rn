@@ -75,3 +75,32 @@ Read our [Upgrade Guide](https://ignitecookbook.com/docs/recipes/UpdatingIgnite)
 💬 Join us on [Slack](https://join.slack.com/t/infiniteredcommunity/shared_invite/zt-1f137np4h-zPTq_CbaRFUOR_glUFs2UA) to discuss.
 
 📰 Make our Editor-in-chief happy by [reading the React Native Newsletter](https://reactnativenewsletter.com/).
+
+```mermaid
+flowchart TD
+  Start([App Starts])
+  LoadMMKV[Load session from MMKV]
+  HasSession{Session exists?}
+
+  AuthStack[<AuthStack />\n(LoginScreen only)]
+  LoginCall[Login → loginApi()\nsave session]
+  SetSession[setSession() triggers rerender]
+
+  MainCoordinator[<MainCoordinator />\n(role-based router)]
+  MatchPolicy[Match session against\nroleRoutingPolicy]
+  Admin[<AdminNavigator />]
+  Participant[<ParticipantNavigator />]
+  Researcher[<ResearcherNavigator />]
+  NoAccess[<NoAccessScreen />]
+
+  Start --> LoadMMKV --> HasSession
+  HasSession -- No --> AuthStack
+  AuthStack --> LoginCall --> SetSession --> MainCoordinator
+  HasSession -- Yes --> MainCoordinator
+
+  MainCoordinator --> MatchPolicy
+  MatchPolicy --> Admin
+  MatchPolicy --> Participant
+  MatchPolicy --> Researcher
+  MatchPolicy --> NoAccess
+```

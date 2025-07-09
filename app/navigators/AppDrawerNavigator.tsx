@@ -1,16 +1,13 @@
-// src/navigation/AppDrawerNavigator.tsx
-
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import { observer } from "mobx-react-lite"
 import { CustomDrawerContent } from "./CustomDrawerContent"
-import { TabNavigator } from "./TabNavigator" // ✅ Importing TabNavigator
+import { TabNavigator } from "./TabNavigator"
 
 const Drawer = createDrawerNavigator()
 
 export const AppDrawerNavigator = () => {
   return (
     <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />} // ✅ Uses custom drawer content
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: false,
         drawerStyle: { backgroundColor: "#c6cbef", width: 240 },
