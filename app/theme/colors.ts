@@ -36,50 +36,41 @@ const palette = {
 } as const
 
 export const colors = {
-  /**
-   * The palette is available to use, but prefer using the name.
-   * This is only included for rare, one-off cases. Try to use
-   * semantic names as much as possible.
-   */
+  /** Raw palette access (avoid when possible) */
   palette,
-  /**
-   * A helper for making something see-thru.
-   */
+
+  /** Transparency helper */
   transparent: "rgba(0, 0, 0, 0)",
-  /**
-   * The default text color in many components.
-   */
+
+  /** Text colors */
   text: palette.neutral800,
-  /**
-   * Secondary text information.
-   */
   textDim: palette.neutral600,
-  /**
-   * The default color of the screen background.
-   */
+  textInverse: palette.neutral100,
+  primaryText: palette.primary600,
+
+  /** Backgrounds */
   background: palette.neutral200,
-  /**
-   * The default border color.
-   */
+  screenBackground: palette.neutral100,
+  cardBackground: palette.neutral100,
+  overlay: palette.overlay20,
+
+  /** Borders and separators */
   border: palette.neutral400,
-  /**
-   * The main tinting color.
-   */
-  tint: palette.primary500,
-  /**
-   * The inactive tinting color.
-   */
-  tintInactive: palette.neutral300,
-  /**
-   * A subtle color used for lines.
-   */
   separator: palette.neutral300,
-  /**
-   * Error messages.
-   */
+
+  /** Branding tints */
+  tint: palette.primary500,
+  tintInactive: palette.neutral300,
+
+  /** Error handling */
   error: palette.angry500,
-  /**
-   * Error Background.
-   */
   errorBackground: palette.angry100,
+
+  /** Status & feedback */
+  success: "#3C9A5F", // optional
+  warning: palette.accent500, // optional
+
+  /** Button colors (optional) */
+  buttonBackground: palette.primary500,
+  buttonText: palette.neutral100,
 } as const

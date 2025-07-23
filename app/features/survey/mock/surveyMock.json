@@ -1,0 +1,40 @@
+{
+  "survey_id": "999",
+  "title": "Daily Wellness Survey",
+  "screens": [
+    {
+      "screen_id": 1,
+      "title": "Daily Mood",
+      "questions": [
+        {
+          "question_id": 101,
+          "text": "How would you rate your mood?",
+          "type": "dropdown",
+          "options": ["Happy", "Neutral", "Sad"]
+        },
+        {
+          "question_id": 102,
+          "text": "Did you sleep well last night?",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "screen_id": 2,
+      "title": "Symptoms Check",
+      "questions": [
+        {
+          "question_id": 103,
+          "text": "Do you have any of the following symptoms?",
+          "type": "multi_select",
+          "options": ["Headache", "Fatigue", "Nausea"]
+        },
+        {
+          "question_id": 104,
+          "text": "Any other comments?",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
