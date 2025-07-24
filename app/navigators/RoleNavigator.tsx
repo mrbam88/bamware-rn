@@ -8,25 +8,22 @@ const Stack = createNativeStackNavigator()
 
 export function RoleNavigator() {
   const session = useAppSelector((state) => state.session.session)
+  const role = session?.user?.role
+  const isInternal = session?.user?.isInternal
+  const isStaff = session?.user?.isStaff
+  const isSuperuser = session?.user?.isSuperuser
 
-  const isLoggedIn = !!session?.accessToken
-  const isParticipant = session?.user?.role === "participant"
-  const isAdmin =
-    session?.user?.isInternal ||
-    session?.user?.isStaff ||
-    session?.user?.isSuperuser ||
-    session?.user?.role === "Program Admin"
+  const effectiveRole =
+    role === "participant" || isInternal || isStaff || isSuperuser ? "participant" : role
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {!isLoggedIn && <Stack.Screen name="Auth" component={AuthNavigator} />}
-
-      {isLoggedIn && (isParticipant || isAdmin) && (
-        <Stack.Screen name="ParticipantFlow" component={ParticipantNavigator} />
+      {!session && <Stack.Screen name="Auth" component={AuthNavigator} />}
+      {session && effectiveRole === "participant" && (
+        <Stack.Screen name="ParticipantFlow" component={MainTabNavigator} />
       )}
-
-      {isLoggedIn && !isParticipant && !isAdmin && (
-        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
+      {session && effectiveRole !== "participant" && (
+        <Stack.Screen name="MainApp" component={MainTabNavigator} />
       )}
     </Stack.Navigator>
   )

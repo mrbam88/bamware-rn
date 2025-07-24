@@ -23,7 +23,7 @@ export const ParticipantLoginScreen = () => {
 
   const handleSubmit = () => {
     if (pin.length === 4) {
-      navigation.navigate("Dashboard")
+      navigation.navigate("ParticipantDashboard")
     }
   }
 

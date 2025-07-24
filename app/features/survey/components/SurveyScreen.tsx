@@ -9,9 +9,7 @@ export const SurveyScreen = () => {
     currentQuestions,
     answers,
     updateAnswer,
-    canGoBack,
     handleNext,
-    handleBack,
     handleFinish,
     isLastScreen,
     isValid,
@@ -42,7 +40,6 @@ export const SurveyScreen = () => {
       />
 
       <View style={styles.buttonRow}>
-        {canGoBack && <Button title="Back" onPress={handleBack} />}
         <Button
           title={isLastScreen ? "Finish" : "Next"}
           onPress={isLastScreen ? handleFinish : handleNext}
@@ -54,20 +51,20 @@ export const SurveyScreen = () => {
 }
 
 const styles = StyleSheet.create({
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 24,
-  },
-  centered: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-  },
   container: {
     flexGrow: 1,
     justifyContent: "center",
     paddingHorizontal: 24,
     paddingVertical: 32,
+  },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginTop: 24,
   },
 })
