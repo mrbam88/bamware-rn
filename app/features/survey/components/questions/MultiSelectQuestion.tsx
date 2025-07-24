@@ -36,17 +36,17 @@ export const MultiSelectQuestion = ({ question, value, onChange }: Props) => {
 const styles = StyleSheet.create({
   container: { marginBottom: 16 },
   label: {
+    color: colors.text,
     fontSize: 16,
     fontWeight: "500",
-    color: colors.text,
     marginBottom: 8,
   },
   option: {
-    padding: 10,
+    borderColor: colors.separator,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: colors.separator,
     marginBottom: 8,
+    padding: 10,
   },
   optionSelected: {
     backgroundColor: colors.tint,

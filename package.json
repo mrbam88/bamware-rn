@@ -31,6 +31,7 @@
     "@expo-google-fonts/space-grotesk": "^0.2.2",
     "@expo/metro-runtime": "~4.0.0",
     "@react-native-community/netinfo": "^11.4.1",
+    "@react-native-picker/picker": "^2.11.1",
     "@react-navigation/bottom-tabs": "^7.2.1",
     "@react-navigation/drawer": "^7.1.2",
     "@react-navigation/native": "^7.0.15",

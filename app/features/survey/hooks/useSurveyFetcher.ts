@@ -1,30 +1,27 @@
-import { useState } from "react"
-import { fetchSurveyScreens } from "../api/fetchSurveyScreens"
+import { useCallback, useState } from "react"
+import surveyMock from "../mock/surveyMock.json"
+import type { Question } from "../types"
 
 export const useSurveyFetcher = () => {
-  const [screens, setScreens] = useState<any[]>([])
-  const [surveyTitle, setSurveyTitle] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
+  const [questions, setQuestions] = useState<Question[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const loadScreens = async () => {
-    setIsLoading(true)
+  const loadSurvey = useCallback(() => {
     try {
-      const data = await fetchSurveyScreens()
-      setScreens(data.screens)
-      setSurveyTitle(data.title)
-    } catch (err) {
-      setError(err as Error)
-    } finally {
+      const sorted = [...surveyMock.questions].sort((a, b) => a.rank - b.rank)
+      setQuestions(sorted)
+      setIsLoading(false)
+    } catch (e) {
+      setError("Failed to load survey.")
       setIsLoading(false)
     }
-  }
+  }, [])
 
   return {
-    screens,
-    surveyTitle,
+    questions,
     isLoading,
     error,
-    loadScreens,
+    loadSurvey,
   }
 }

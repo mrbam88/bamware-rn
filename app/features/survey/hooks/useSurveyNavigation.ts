@@ -1,28 +1,25 @@
+// app/features/survey/hooks/useSurveyNavigation.ts
 export const useSurveyNavigation = (
   currentIndex: number,
-  totalScreens: number,
+  total: number,
   setCurrentIndex: (index: number) => void,
 ) => {
-  const canGoNext = currentIndex < totalScreens - 1
+  const canGoNext = currentIndex < total - 1
   const canGoBack = currentIndex > 0
-  const isLastScreen = currentIndex === totalScreens - 1
+  const isLastQuestion = currentIndex === total - 1
 
   const goNext = () => {
-    if (canGoNext) {
-      setCurrentIndex(currentIndex + 1)
-    }
+    if (canGoNext) setCurrentIndex(currentIndex + 1)
   }
 
   const goBack = () => {
-    if (canGoBack) {
-      setCurrentIndex(currentIndex - 1)
-    }
+    if (canGoBack) setCurrentIndex(currentIndex - 1)
   }
 
   return {
     canGoNext,
     canGoBack,
-    isLastScreen,
+    isLastQuestion,
     goNext,
     goBack,
   }

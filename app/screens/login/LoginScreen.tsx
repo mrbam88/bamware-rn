@@ -71,16 +71,16 @@ export const LoginScreen = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 24, flex: 1, justifyContent: "center" },
+  container: { flex: 1, justifyContent: "center", padding: 24 },
+  error: { color: "red", marginBottom: 12 },
   heading: { fontSize: 24, marginBottom: 24, textAlign: "center" },
   input: {
-    borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
+    borderWidth: 1,
+    marginBottom: 12,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    marginBottom: 12,
   },
-  error: { color: "red", marginBottom: 12 },
   spinner: { marginTop: 16 },
 })

@@ -1,40 +1,38 @@
 {
-  "survey_id": "999",
-  "title": "Daily Wellness Survey",
-  "screens": [
+  "survey_id": "cardio-001",
+  "title": "CardioFlex Baseline Survey",
+  "questions": [
     {
-      "screen_id": 1,
-      "title": "Daily Mood",
-      "questions": [
-        {
-          "question_id": 101,
-          "text": "How would you rate your mood?",
-          "type": "dropdown",
-          "options": ["Happy", "Neutral", "Sad"]
-        },
-        {
-          "question_id": 102,
-          "text": "Did you sleep well last night?",
-          "type": "boolean"
-        }
-      ]
+      "id": 1,
+      "text": "What is your age?",
+      "type": "numeric",
+      "rank": 1
     },
     {
-      "screen_id": 2,
-      "title": "Symptoms Check",
-      "questions": [
-        {
-          "question_id": 103,
-          "text": "Do you have any of the following symptoms?",
-          "type": "multi_select",
-          "options": ["Headache", "Fatigue", "Nausea"]
-        },
-        {
-          "question_id": 104,
-          "text": "Any other comments?",
-          "type": "text"
-        }
-      ]
+      "id": 2,
+      "text": "What is your gender?",
+      "type": "dropdown",
+      "options": ["Male", "Female", "Non-binary", "Other"],
+      "rank": 2
+    },
+    {
+      "id": 3,
+      "text": "Do you currently smoke?",
+      "type": "yes_no",
+      "rank": 3
+    },
+    {
+      "id": 4,
+      "text": "List any medications you are currently taking.",
+      "type": "text",
+      "rank": 4
+    },
+    {
+      "id": 5,
+      "text": "Select any side effects you’ve experienced:",
+      "type": "checkbox",
+      "options": ["Fatigue", "Dizziness", "Insomnia"],
+      "rank": 5
     }
   ]
 }

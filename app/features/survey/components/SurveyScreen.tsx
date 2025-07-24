@@ -1,16 +1,18 @@
-import { SafeAreaView, StyleSheet, Text } from "react-native"
+// app/features/survey/screens/SurveyScreen.tsx
+
+import React from "react"
+import { View, Text, Button, ActivityIndicator, ScrollView } from "react-native"
 import { useSurveyFlowCoordinator } from "../hooks/useSurveyFlowCoordinator"
 import { SurveyScreenRenderer } from "../components/SurveyScreenRenderer"
-import { SurveyControls } from "../components/SurveyControls"
-import { colors } from "@/theme/colors"
 
 export const SurveyScreen = () => {
   const {
     isLoading,
     error,
-    currentScreen,
+    currentQuestions,
     answers,
     updateAnswer,
+    canGoNext,
     canGoBack,
     handleNext,
     handleBack,
@@ -19,30 +21,45 @@ export const SurveyScreen = () => {
     isValid,
   } = useSurveyFlowCoordinator()
 
-  if (isLoading) return <Text>Loading...</Text>
-  if (error) return <Text>Error loading survey</Text>
-  if (!currentScreen) return <Text>No screen found</Text>
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    )
+  }
+
+  if (error) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Error loading survey: {error}</Text>
+      </View>
+    )
+  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <SurveyScreenRenderer screen={currentScreen} answers={answers} updateAnswer={updateAnswer} />
-      <SurveyControls
-        canGoBack={canGoBack}
-        isLast={isLastScreen}
-        onBack={handleBack}
-        onNext={handleNext}
-        onFinish={handleFinish}
-        isValid={isValid}
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: "center",
+        paddingHorizontal: 24,
+        paddingVertical: 32,
+      }}
+    >
+      <SurveyScreenRenderer
+        questions={currentQuestions}
+        answers={answers}
+        updateAnswer={updateAnswer}
       />
-    </SafeAreaView>
+
+      <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 24 }}>
+        {canGoBack && <Button title="Back" onPress={handleBack} />}
+        <Button
+          title={isLastScreen ? "Finish" : "Next"}
+          onPress={isLastScreen ? handleFinish : handleNext}
+          disabled={!isValid}
+        />
+      </View>
+    </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.background,
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
-})

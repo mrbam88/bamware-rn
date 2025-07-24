@@ -25,18 +25,18 @@ export const TextQuestion = ({ question, value, onChange }: Props) => {
 
 const styles = StyleSheet.create({
   container: { marginBottom: 16 },
-  label: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: colors.text,
-    marginBottom: 4,
-  },
   input: {
     borderColor: colors.separator,
-    borderWidth: 1,
     borderRadius: 6,
-    padding: 8,
-    fontSize: 16,
+    borderWidth: 1,
     color: colors.text,
+    fontSize: 16,
+    padding: 8,
+  },
+  label: {
+    color: colors.text,
+    fontSize: 16,
+    fontWeight: "500",
+    marginBottom: 4,
   },
 })

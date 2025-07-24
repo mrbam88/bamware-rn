@@ -1,30 +1,41 @@
 import { useState } from "react"
+import surveyData from "../mock/surveyMock.json"
+import type { Question } from "../types"
 
-export function useSurveyFlow(questions: any[]) {
-  const [step, setStep] = useState<number>(-1)
+export function useSurveyFlow() {
+  const questions = surveyData.questions.sort((a, b) => a.rank - b.rank)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [answers, setAnswers] = useState<Record<number, any>>({})
 
-  const total = questions.length
+  const currentQuestion = questions[currentIndex]
+  const isLast = currentIndex === questions.length - 1
+  const isFirst = currentIndex === 0
 
-  const start = () => setStep(0)
-  const next = () => setStep((s) => Math.min(s + 1, total))
-  const back = () => setStep((s) => Math.max(s - 1, 0))
-  const skip = () => next()
-  const reset = () => setStep(-1)
+  const updateAnswer = (questionId: number, value: any) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: value }))
+  }
 
-  const isFirst = step === 0
-  const isLast = step === total - 1
-  const isComplete = step === total
+  const next = () => {
+    if (!isLast) setCurrentIndex((i) => i + 1)
+  }
+
+  const back = () => {
+    if (!isFirst) setCurrentIndex((i) => i - 1)
+  }
+
+  const reset = () => {
+    setCurrentIndex(0)
+    setAnswers({})
+  }
 
   return {
-    step,
-    screen: questions[step],
-    isFirst,
-    isLast,
-    isComplete,
-    start,
+    currentQuestion,
+    answers,
+    updateAnswer,
     next,
     back,
-    skip,
     reset,
+    isLast,
+    isFirst,
   }
 }

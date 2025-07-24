@@ -20,7 +20,7 @@ export const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
-          let iconName = route.name === "Home" ? "home" : "user"
+          const iconName = route.name === "Home" ? "home" : "user"
           return <Icon icon={iconName} size={size} color={color} />
         },
         tabBarActiveTintColor: colors.primary,

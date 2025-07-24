@@ -20,9 +20,9 @@ export const BooleanQuestion = ({ question, value, onChange }: Props) => {
 const styles = StyleSheet.create({
   container: { marginBottom: 16 },
   label: {
+    color: colors.text,
     fontSize: 16,
     fontWeight: "500",
-    color: colors.text,
     marginBottom: 4,
   },
 })

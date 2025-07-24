@@ -2,53 +2,45 @@ import { useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
 import { useSurveyFetcher } from "./useSurveyFetcher"
 import { useSurveyState } from "./useSurveyState"
-import { useSurveyNavigation } from "./useSurveyNavigation"
-import { useSurveyValidator } from "./useSurveyValidator"
-import { useSurveySubmitter } from "./useSurveySubmitter"
 
 export const useSurveyFlowCoordinator = () => {
   const navigation = useNavigation()
-  const { screens, isLoading, error, loadScreens } = useSurveyFetcher()
-  const { currentIndex, currentScreen, answers, updateAnswer, setCurrentIndex, resetSurvey } =
-    useSurveyState(screens)
+  const { questions, isLoading, error, loadSurvey } = useSurveyFetcher()
+  const { currentIndex, currentQuestions, answers, updateAnswer, setCurrentIndex, resetSurvey } =
+    useSurveyState(questions)
 
-  const { canGoNext, canGoBack, isLastScreen, goNext, goBack } = useSurveyNavigation(
-    currentIndex,
-    screens.length,
-    setCurrentIndex,
-  )
+  const canGoBack = currentIndex > 0
+  const canGoNext = currentIndex < questions.length - 1
+  const isLastScreen = currentIndex === questions.length - 1
 
-  const { isValid } = useSurveyValidator(currentScreen, answers)
-  const { submit } = useSurveySubmitter()
+  const isValid = currentQuestions.every((q) => {
+    const value = answers[q.id]
+    if (q.required) return value !== null && value !== undefined && value !== ""
+    return true
+  })
 
   useEffect(() => {
-    loadScreens()
-  }, [loadScreens])
+    loadSurvey()
+  }, [])
 
   const handleNext = () => {
-    if (!isValid) return
-    if (isLastScreen) {
-      handleFinish()
-    } else {
-      goNext()
-    }
+    if (canGoNext) setCurrentIndex(currentIndex + 1)
   }
 
   const handleBack = () => {
-    goBack()
+    if (canGoBack) setCurrentIndex(currentIndex - 1)
   }
 
   const handleFinish = () => {
-    submit(answers)
-    console.log("Submitted!", answers)
+    console.log("✅ Submitted survey:", answers)
     resetSurvey()
-    navigation.navigate("Dashboard") // ✅ Navigate back to start screen
+    navigation.navigate("Dashboard")
   }
 
   return {
     isLoading,
     error,
-    currentScreen,
+    currentQuestions,
     answers,
     updateAnswer,
     canGoNext,

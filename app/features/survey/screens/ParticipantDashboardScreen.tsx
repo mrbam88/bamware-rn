@@ -15,8 +15,8 @@ export const ParticipantDashboardScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
     justifyContent: "center",
+    padding: 24,
   },
   title: {
     fontSize: 20,

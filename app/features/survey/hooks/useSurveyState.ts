@@ -1,26 +1,24 @@
-import { useState, useMemo } from "react"
+import { useState } from "react"
+import type { Question, SurveyAnswerMap } from "../types"
 
-export const useSurveyState = (screens: any[]) => {
+export const useSurveyState = (questions: Question[]) => {
+  const [answers, setAnswers] = useState<SurveyAnswerMap>({})
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, any>>({})
 
-  const currentScreen = useMemo(() => screens?.[currentIndex] ?? null, [screens, currentIndex])
+  const currentQuestions = questions.length > 0 ? [questions[currentIndex]] : []
 
-  const updateAnswer = (questionId: string, value: any) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [questionId]: value,
-    }))
+  const updateAnswer = (questionId: number, value: any) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: value }))
   }
 
   const resetSurvey = () => {
-    setCurrentIndex(0)
     setAnswers({})
+    setCurrentIndex(0)
   }
 
   return {
     currentIndex,
-    currentScreen,
+    currentQuestions,
     answers,
     updateAnswer,
     setCurrentIndex,
