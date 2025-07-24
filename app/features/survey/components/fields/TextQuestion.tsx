@@ -1,19 +1,20 @@
-import React from "react"
-import { TextInput } from "react-native"
+import { StyleSheet, TextInput } from "react-native"
+import { colors } from "@/theme/colors"
 
-export const TextQuestion = ({
-  value,
-  onChange,
-}: {
+type Props = {
   value: string
   onChange: (val: string) => void
-}) => {
-  return (
-    <TextInput
-      value={value}
-      onChangeText={onChange}
-      placeholder="Type your answer..."
-      style={{ borderWidth: 1, borderColor: "#ccc", borderRadius: 6, padding: 10 }}
-    />
-  )
 }
+
+export function TextQuestion({ value, onChange }: Props) {
+  return <TextInput style={styles.input} value={value} onChangeText={onChange} multiline />
+}
+
+const styles = StyleSheet.create({
+  input: {
+    borderColor: colors.border,
+    borderRadius: 6,
+    borderWidth: 1,
+    padding: 10,
+  },
+})

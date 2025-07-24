@@ -1,20 +1,22 @@
-import React from "react"
-import { TextInput } from "react-native"
+import { StyleSheet, TextInput } from "react-native"
+import { colors } from "@/theme/colors"
 
-export const NumericQuestion = ({
-  value,
-  onChange,
-}: {
-  value: number
-  onChange: (val: number) => void
-}) => {
+type Props = {
+  value: string
+  onChange: (val: string) => void
+}
+
+export function NumericQuestion({ value, onChange }: Props) {
   return (
-    <TextInput
-      value={value?.toString() ?? ""}
-      onChangeText={(text) => onChange(Number(text))}
-      keyboardType="numeric"
-      placeholder="Enter a number..."
-      style={{ borderWidth: 1, borderColor: "#ccc", borderRadius: 6, padding: 10 }}
-    />
+    <TextInput style={styles.input} keyboardType="numeric" value={value} onChangeText={onChange} />
   )
 }
+
+const styles = StyleSheet.create({
+  input: {
+    borderColor: colors.border,
+    borderRadius: 6,
+    borderWidth: 1,
+    padding: 10,
+  },
+})

@@ -22,10 +22,7 @@ export const LoginScreen = () => {
       await saveSessionToStorage(session)
       dispatch(setSession(session))
 
-      resetRoot({
-        index: 0,
-        routes: [{ name: "MainApp" }],
-      })
+      resetRoot() // ✅ No route name needed – RoleNavigator handles logic
     } catch (err: any) {
       console.error("Login error:", err)
       setError(err.message ?? "Login failed.")
@@ -36,9 +33,7 @@ export const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading} testID="login-heading">
-        Login
-      </Text>
+      <Text style={styles.heading}>Login</Text>
 
       <TextInput
         placeholder="Email"
@@ -63,7 +58,6 @@ export const LoginScreen = () => {
         title={loading ? "Logging in..." : "Login"}
         onPress={handleLogin}
         disabled={loading}
-        testID="login-submit-button"
       />
       {loading && <ActivityIndicator style={styles.spinner} />}
     </View>

@@ -1,10 +1,9 @@
-import React from "react"
-import type { Question } from "../types"
-import { TextQuestion } from "./fields/TextQuestion"
 import { DropdownQuestion } from "./fields/DropdownQuestion"
 import { CheckboxQuestion } from "./fields/CheckboxQuestion"
 import { YesNoQuestion } from "./fields/YesNoQuestion"
 import { NumericQuestion } from "./fields/NumericQuestion"
+import { TextQuestion } from "./fields/TextQuestion"
+import type { Question } from "../types"
 
 type Props = {
   question: Question
@@ -19,7 +18,7 @@ export const QuestionRenderer = ({ question, answer, onAnswerChange }: Props) =>
     case "dropdown":
       return (
         <DropdownQuestion
-          options={question.options || []}
+          options={Array.isArray(question.options) ? question.options : []}
           value={answer}
           onChange={onAnswerChange}
         />
@@ -27,8 +26,8 @@ export const QuestionRenderer = ({ question, answer, onAnswerChange }: Props) =>
     case "checkbox":
       return (
         <CheckboxQuestion
-          options={question.options || []}
-          value={answer || []}
+          options={Array.isArray(question.options) ? question.options : []}
+          value={Array.isArray(answer) ? answer : []}
           onChange={onAnswerChange}
         />
       )

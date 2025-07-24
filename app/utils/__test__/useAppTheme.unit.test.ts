@@ -1,4 +1,3 @@
-import React from "react"
 import { useAppTheme } from "../useAppTheme"
 
 jest.mock("../useAppTheme", () => ({

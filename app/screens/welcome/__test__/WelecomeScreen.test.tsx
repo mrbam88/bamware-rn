@@ -1,5 +1,4 @@
-import React from "react"
-import { render, screen } from "@testing-library/react-native"
+import { render } from "@testing-library/react-native"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { WelcomeScreen } from "../WelcomeScreen"
 

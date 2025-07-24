@@ -1,10 +1,16 @@
 import { useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { useSurveyFetcher } from "./useSurveyFetcher"
 import { useSurveyState } from "./useSurveyState"
+import type { Question } from "../types"
+
+type AppStackParamList = {
+  Dashboard: undefined
+}
 
 export const useSurveyFlowCoordinator = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
   const { questions, isLoading, error, loadSurvey } = useSurveyFetcher()
   const { currentIndex, currentQuestions, answers, updateAnswer, setCurrentIndex, resetSurvey } =
     useSurveyState(questions)
@@ -13,7 +19,7 @@ export const useSurveyFlowCoordinator = () => {
   const canGoNext = currentIndex < questions.length - 1
   const isLastScreen = currentIndex === questions.length - 1
 
-  const isValid = currentQuestions.every((q) => {
+  const isValid = currentQuestions.every((q: Question) => {
     const value = answers[q.id]
     if (q.required) return value !== null && value !== undefined && value !== ""
     return true
@@ -21,7 +27,7 @@ export const useSurveyFlowCoordinator = () => {
 
   useEffect(() => {
     loadSurvey()
-  }, [])
+  }, [loadSurvey])
 
   const handleNext = () => {
     if (canGoNext) setCurrentIndex(currentIndex + 1)
@@ -32,7 +38,7 @@ export const useSurveyFlowCoordinator = () => {
   }
 
   const handleFinish = () => {
-    console.log("✅ Submitted survey:", answers)
+    console.log("Submitted survey:", answers)
     resetSurvey()
     navigation.navigate("Dashboard")
   }

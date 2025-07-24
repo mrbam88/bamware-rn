@@ -1,4 +1,3 @@
-// AdminNavigator.tsx
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { AdminDashboardScreen } from "../screens/AdminDashboardScreen"
 

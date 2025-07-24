@@ -37,14 +37,37 @@ const palette = {
 
 export const colors = {
   palette,
+
   transparent: "rgba(0, 0, 0, 0)",
+
   text: palette.neutral800,
   textDim: palette.neutral600,
+  textInverse: palette.neutral100,
+  primaryText: palette.primary600,
+
   background: palette.neutral200,
+  screenBackground: palette.neutral100,
+  cardBackground: palette.neutral100,
+  overlay: palette.overlay20,
+
   border: palette.neutral400,
+  separator: palette.neutral300,
+
   tint: palette.primary500,
   tintInactive: palette.neutral300,
-  separator: palette.neutral300,
+
   error: palette.angry500,
   errorBackground: palette.angry100,
-} as const
+
+  success: "#3C9A5F",
+  warning: palette.accent500,
+
+  buttonBackground: palette.primary500,
+  buttonText: palette.neutral100,
+
+  // Match light theme additions
+  primary: palette.primary500,
+  surface: palette.neutral100,
+  backgroundDark: palette.neutral900,
+  keypad: palette.accent100,
+}

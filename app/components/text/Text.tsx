@@ -1,5 +1,3 @@
-// In Button.tsx and Text.tsx
-import React from "react"
 import { TOptions } from "i18next"
 import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
 import { isRTL, translate, TxKeyPath } from "@/i18n"

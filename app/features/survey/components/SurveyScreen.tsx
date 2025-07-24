@@ -1,9 +1,6 @@
-// app/features/survey/screens/SurveyScreen.tsx
-
-import React from "react"
-import { View, Text, Button, ActivityIndicator, ScrollView } from "react-native"
+import { View, Text, ActivityIndicator, ScrollView, StyleSheet, Button } from "react-native"
 import { useSurveyFlowCoordinator } from "../hooks/useSurveyFlowCoordinator"
-import { SurveyScreenRenderer } from "../components/SurveyScreenRenderer"
+import { SurveyScreenRenderer } from "./SurveyScreenRenderer"
 
 export const SurveyScreen = () => {
   const {
@@ -12,7 +9,6 @@ export const SurveyScreen = () => {
     currentQuestions,
     answers,
     updateAnswer,
-    canGoNext,
     canGoBack,
     handleNext,
     handleBack,
@@ -23,7 +19,7 @@ export const SurveyScreen = () => {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={styles.centered}>
         <ActivityIndicator size="large" />
       </View>
     )
@@ -31,28 +27,21 @@ export const SurveyScreen = () => {
 
   if (error) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={styles.centered}>
         <Text>Error loading survey: {error}</Text>
       </View>
     )
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        justifyContent: "center",
-        paddingHorizontal: 24,
-        paddingVertical: 32,
-      }}
-    >
+    <ScrollView contentContainerStyle={styles.container}>
       <SurveyScreenRenderer
         questions={currentQuestions}
         answers={answers}
         updateAnswer={updateAnswer}
       />
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 24 }}>
+      <View style={styles.buttonRow}>
         {canGoBack && <Button title="Back" onPress={handleBack} />}
         <Button
           title={isLastScreen ? "Finish" : "Next"}
@@ -63,3 +52,22 @@ export const SurveyScreen = () => {
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 24,
+  },
+  centered: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+  },
+  container: {
+    flexGrow: 1,
+    justifyContent: "center",
+    paddingHorizontal: 24,
+    paddingVertical: 32,
+  },
+})

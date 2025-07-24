@@ -1,25 +1,31 @@
-import React from "react"
-import { View, Button } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Button } from "@/components/button/Button"
 
-export const YesNoQuestion = ({
-  value,
-  onChange,
-}: {
-  value: string
-  onChange: (val: string) => void
-}) => {
+type Props = {
+  value: boolean | null
+  onChange: (val: boolean) => void
+}
+
+export function YesNoQuestion({ value, onChange }: Props) {
   return (
-    <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+    <View style={styles.container}>
       <Button
-        title="Yes"
-        onPress={() => onChange("yes")}
-        color={value === "yes" ? "green" : undefined}
+        text="Yes"
+        preset={value === true ? "filled" : "default"}
+        onPress={() => onChange(true)}
       />
       <Button
-        title="No"
-        onPress={() => onChange("no")}
-        color={value === "no" ? "red" : undefined}
+        text="No"
+        preset={value === false ? "filled" : "default"}
+        onPress={() => onChange(false)}
       />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+})

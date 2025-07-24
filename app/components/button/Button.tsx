@@ -1,5 +1,3 @@
-// In Button.tsx and Text.tsx
-import React from "react"
 import { ComponentType } from "react"
 import {
   Pressable,

@@ -1,4 +1,3 @@
-import React from "react"
 import { render, fireEvent, waitFor } from "@testing-library/react-native"
 import { act } from "react-test-renderer"
 import { Provider } from "react-redux"

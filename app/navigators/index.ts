@@ -1,3 +1,5 @@
-export * from "./AppNavigator"
+export * from "./RoleNavigator"
 export * from "./navigationUtilities"
-// export other navigators from here
+export * from "./AuthNavigator"
+export * from "./MainTabNavigator"
+export * from "./ParticipantNavigator"

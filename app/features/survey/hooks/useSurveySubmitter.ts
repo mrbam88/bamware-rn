@@ -1,13 +1,13 @@
 import { submitSurveyAnswers } from "../api/submitSurveyAnswers"
 
 export const useSurveySubmitter = () => {
-  const submit = async (answers: Record<string, any>) => {
-    try {
-      await submitSurveyAnswers(answers)
-      console.log("Survey submitted successfully")
-    } catch (err) {
-      console.error("Survey submission failed", err)
-    }
+  const submit = (answers: Record<string, any>) => {
+    const payload = Object.entries(answers).map(([questionId, response]) => ({
+      questionId: Number(questionId),
+      response,
+    }))
+
+    submitSurveyAnswers(payload)
   }
 
   return { submit }

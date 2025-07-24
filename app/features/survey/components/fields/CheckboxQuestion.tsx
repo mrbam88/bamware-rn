@@ -1,43 +1,53 @@
-import React from "react"
-import { View, Text, TouchableOpacity } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import { colors } from "@/theme/colors"
 
-export const CheckboxQuestion = ({
-  options,
-  value,
-  onChange,
-}: {
+type Props = {
   options: string[]
   value: string[]
-  onChange: (val: string[]) => void
-}) => {
-  const toggle = (option: string) => {
-    if (value.includes(option)) {
-      onChange(value.filter((v) => v !== option))
-    } else {
-      onChange([...value, option])
-    }
+  onChange: (newValue: string[]) => void
+}
+
+export function CheckboxQuestion({ options, value, onChange }: Props) {
+  const toggleOption = (option: string) => {
+    const newValue = value.includes(option) ? value.filter((v) => v !== option) : [...value, option]
+    onChange(newValue)
   }
 
   return (
     <View>
-      {options.map((opt) => (
-        <TouchableOpacity
-          key={opt}
-          onPress={() => toggle(opt)}
-          style={{ flexDirection: "row", alignItems: "center", marginBottom: 10 }}
-        >
-          <View
-            style={{
-              width: 20,
-              height: 20,
-              borderWidth: 1,
-              marginRight: 8,
-              backgroundColor: value.includes(opt) ? "#007AFF" : "#fff",
-            }}
-          />
-          <Text>{opt}</Text>
-        </TouchableOpacity>
-      ))}
+      {options.map((opt) => {
+        const selected = value.includes(opt)
+        return (
+          <Pressable key={opt} onPress={() => toggleOption(opt)} style={styles.optionWrapper}>
+            <View
+              style={[
+                styles.box,
+                selected ? { backgroundColor: colors.tint } : styles.boxUnselected,
+              ]}
+            />
+            <Text>{opt}</Text>
+          </Pressable>
+        )
+      })}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  box: {
+    borderColor: colors.border,
+    borderRadius: 4,
+    borderWidth: 1,
+    height: 20,
+    marginRight: 8,
+    width: 20,
+  },
+  boxUnselected: {
+    backgroundColor: colors.background,
+  },
+  optionWrapper: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 10,
+  },
+})

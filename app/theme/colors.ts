@@ -36,41 +36,38 @@ const palette = {
 } as const
 
 export const colors = {
-  /** Raw palette access (avoid when possible) */
   palette,
 
-  /** Transparency helper */
   transparent: "rgba(0, 0, 0, 0)",
 
-  /** Text colors */
   text: palette.neutral800,
   textDim: palette.neutral600,
   textInverse: palette.neutral100,
   primaryText: palette.primary600,
 
-  /** Backgrounds */
   background: palette.neutral200,
   screenBackground: palette.neutral100,
   cardBackground: palette.neutral100,
   overlay: palette.overlay20,
 
-  /** Borders and separators */
   border: palette.neutral400,
   separator: palette.neutral300,
 
-  /** Branding tints */
   tint: palette.primary500,
   tintInactive: palette.neutral300,
 
-  /** Error handling */
   error: palette.angry500,
   errorBackground: palette.angry100,
 
-  /** Status & feedback */
-  success: "#3C9A5F", // optional
-  warning: palette.accent500, // optional
+  success: "#3C9A5F",
+  warning: palette.accent500,
 
-  /** Button colors (optional) */
   buttonBackground: palette.primary500,
   buttonText: palette.neutral100,
-} as const
+
+  // ✅ Custom additions to fix theme errors
+  primary: palette.primary500,
+  surface: palette.neutral100,
+  backgroundDark: palette.neutral900,
+  keypad: palette.accent100,
+}

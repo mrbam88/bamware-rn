@@ -1,6 +1,3 @@
-// src/navigation/__test__/AppNavigator.test.tsx
-
-import React from "react"
 import { render } from "@testing-library/react-native"
 import { AppNavigator } from ".."
 import { SafeAreaProvider } from "react-native-safe-area-context"

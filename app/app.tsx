@@ -12,7 +12,7 @@ import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-c
 import * as Linking from "expo-linking"
 import * as SplashScreen from "expo-splash-screen"
 import { useInitialRootStore } from "./models"
-import { AppNavigator, useNavigationPersistence } from "./navigators"
+import { RoleNavigator, useNavigationPersistence } from "./navigators"
 import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
 import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
@@ -85,7 +85,7 @@ export function App() {
                   initialState={initialNavigationState}
                   onStateChange={onNavigationStateChange}
                 >
-                  <AppNavigator />
+                  <RoleNavigator />
                 </NavigationContainer>
               </ThemeContext.Provider>
             </QueryClientProvider>

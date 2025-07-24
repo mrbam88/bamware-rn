@@ -1,4 +1,3 @@
-import React from "react"
 import { Text } from "@/components"
 import { render } from "@testing-library/react-native"
 import { useStores } from "../helpers/useStores"

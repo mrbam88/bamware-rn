@@ -1,4 +1,3 @@
-// app/features/survey/hooks/useSurveyNavigation.ts
 export const useSurveyNavigation = (
   currentIndex: number,
   total: number,
