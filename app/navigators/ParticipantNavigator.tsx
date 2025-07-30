@@ -7,7 +7,7 @@ const Stack = createNativeStackNavigator()
 
 export function ParticipantNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ParticipantDashboard" component={ParticipantDashboardScreen} />
       <Stack.Screen name="ParticipantLoginScreen" component={ParticipantLoginScreen} />
       <Stack.Screen name="Survey" component={SurveyScreen} />

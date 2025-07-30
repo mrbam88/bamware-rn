@@ -78,3 +78,5 @@ export { spacingLight as spacing }
 export * from "./styles"
 export * from "./typography"
 export * from "./timing"
+export { useAppTheme } from "../utils/useAppTheme"
+export { useThemeProvider } from "../utils/useAppTheme"

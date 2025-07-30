@@ -40,7 +40,6 @@ export const useSurveyFlowCoordinator = () => {
 
   const handleFinish = async () => {
     try {
-      console.log("Submitting answers:", answers)
       await submitSurveyAnswers(answers)
       resetSurvey()
       navigation.navigate("Dashboard")
@@ -53,15 +52,14 @@ export const useSurveyFlowCoordinator = () => {
     isLoading,
     error,
     currentQuestions,
+    currentIndex,
+    total: questions.length,
     answers,
     updateAnswer,
-    canGoNext,
-    canGoBack,
     handleNext,
     handleBack,
     handleFinish,
     isLastScreen,
-    resetSurvey,
     isValid,
   }
 }

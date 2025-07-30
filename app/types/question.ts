@@ -42,3 +42,7 @@ export interface Question {
     short_description?: string
   }
 }
+
+export type SurveyAnswerMap = {
+  [question_id: number]: string | string[] | number | boolean | null
+}

@@ -1,15 +1,21 @@
-import { View, Text, ActivityIndicator, ScrollView, StyleSheet, Button } from "react-native"
+import React from "react"
+import { View, Text, ActivityIndicator, ScrollView, StyleSheet } from "react-native"
 import { useSurveyFlowCoordinator } from "../hooks/useSurveyFlowCoordinator"
-import { SurveyScreenRenderer } from "./SurveyScreenRenderer"
+import { SurveyScreenRenderer } from "../components/SurveyScreenRenderer"
+import { useNavigation } from "@react-navigation/native"
 
 export const SurveyScreen = () => {
+  const navigation = useNavigation()
   const {
     isLoading,
     error,
     currentQuestions,
+    currentIndex,
+    total,
     answers,
     updateAnswer,
     handleNext,
+    handleBack,
     handleFinish,
     isLastScreen,
     isValid,
@@ -24,9 +30,15 @@ export const SurveyScreen = () => {
   }
 
   if (error) {
+    const message =
+      typeof error === "string"
+        ? error
+        : error instanceof Error
+          ? error.message
+          : "Something went wrong"
     return (
       <View style={styles.centered}>
-        <Text>Error loading survey: {error}</Text>
+        <Text style={styles.errorText}>{message}</Text>
       </View>
     )
   }
@@ -36,15 +48,15 @@ export const SurveyScreen = () => {
       <SurveyScreenRenderer
         questions={currentQuestions}
         answers={answers}
+        currentIndex={currentIndex}
+        total={total}
         updateAnswer={updateAnswer}
+        isLast={isLastScreen}
+        isValid={isValid}
+        onBack={handleBack}
+        onNext={isLastScreen ? handleFinish : handleNext}
+        onClose={() => navigation.goBack()}
       />
-      <View style={styles.buttonRow}>
-        <Button
-          title={isLastScreen ? "Finish" : "Next"}
-          onPress={isLastScreen ? handleFinish : handleNext}
-          disabled={!isValid}
-        />
-      </View>
     </ScrollView>
   )
 }
@@ -60,10 +72,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 32,
   },
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginTop: 24,
+  errorText: {
+    fontSize: 16,
+    color: "#B00020",
+    textAlign: "center",
   },
 })

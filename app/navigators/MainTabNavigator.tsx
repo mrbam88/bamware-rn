@@ -10,8 +10,8 @@ const Tab = createBottomTabNavigator()
 export function MainTabNavigator() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="SurveyTab" component={ParticipantNavigator} options={{ title: "Survey" }} />
-      <Tab.Screen name="StudyTab" component={StudyScreen} options={{ title: "Studyy" }} />
+      <Tab.Screen name="SurveyTab" component={ParticipantNavigator} />
+      <Tab.Screen name="StudyTab" component={StudyScreen} options={{ title: "Study" }} />
       <Tab.Screen
         name="Questions"
         component={DebugQuestionScreen}
