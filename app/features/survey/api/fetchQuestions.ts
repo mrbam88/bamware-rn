@@ -1,26 +1,49 @@
 import { getAccessToken } from "@/features/auth/sessionStorage"
+import { normalizeQuestion } from "../normalizeQuestion"
 import type { Question } from "../../../types/question"
-
-const BASE_URL = "http://localhost:8000/api"
+import Config from "@/config"
 
 export async function fetchQuestions(): Promise<Question[]> {
   const token = await getAccessToken()
   console.log("Fetching questions with token:", token)
 
-  const res = await fetch(`${BASE_URL}/questions/`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const text = await res.text()
-
   try {
-    const data = JSON.parse(text)
-    console.log(" Questions fetched:", data.length)
-    return data as Question[]
+    const res = await fetch(`${Config.apiBaseUrl}/questions/`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+
+    const text = await res.text()
+
+    let raw
+    try {
+      raw = JSON.parse(text)
+    } catch (err) {
+      console.error("Failed to parse JSON:", text)
+      throw new Error("Malformed JSON in response")
+    }
+
+    if (!Array.isArray(raw)) {
+      console.error("Expected array but got:", typeof raw, raw)
+      throw new Error("Invalid API response shape")
+    }
+
+    const normalized = raw
+      .map((r, i) => {
+        const n = normalizeQuestion(r)
+        if (!n) {
+          console.warn(`Skipped invalid question at index ${i}`, r)
+        }
+        return n
+      })
+      .filter((q): q is Question => q !== null)
+
+    console.log(`Normalized ${normalized.length} questions`)
+    return normalized
   } catch (err) {
-    console.error(" Failed to parse questions JSON:", text)
-    throw new Error("Failed to fetch questions")
+    console.error("Failed to fetch questions:", err)
+    throw err
   }
 }

@@ -1,15 +1,15 @@
 import type { ConfigBaseProps } from "./config.base"
 
-const DevConfig: Partial<ConfigBaseProps> = {
-  environment: "dev",
+const StageConfig: Partial<ConfigBaseProps> = {
+  environment: "stage",
   apiBaseUrl: "http://localhost:8000/api",
 
   useMock: {
-    questions: true,
+    questions: false,
     answers: false,
     survey: false,
-    session: true,
+    session: false,
   },
 }
 
-export default DevConfig
+export default StageConfig

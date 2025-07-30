@@ -1,26 +1,35 @@
+export type Environment = "dev" | "stage" | "prod"
+
 export interface ConfigBaseProps {
+  environment: Environment
+
   persistNavigation: "always" | "dev" | "prod" | "never"
   catchErrors: "always" | "dev" | "prod" | "never"
   exitRoutes: string[]
+
+  apiBaseUrl: string
+  useMock: {
+    questions: boolean
+    answers: boolean
+    survey: boolean
+    session: boolean
+  }
 }
 
-export type PersistNavigationConfig = ConfigBaseProps["persistNavigation"]
-
 const BaseConfig: ConfigBaseProps = {
-  // This feature is particularly useful in development mode, but
-  // can be used in production as well if you prefer.
+  environment: "dev", // will be overridden
+
   persistNavigation: "dev",
-
-  /**
-   * Only enable if we're catching errors in the right environment
-   */
   catchErrors: "always",
-
-  /**
-   * This is a list of all the route names that will exit the app if the back button
-   * is pressed while in that screen. Only affects Android.
-   */
   exitRoutes: ["Login"],
+
+  apiBaseUrl: "",
+  useMock: {
+    questions: false,
+    answers: false,
+    survey: false,
+    session: false,
+  },
 }
 
 export default BaseConfig

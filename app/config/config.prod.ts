@@ -1,10 +1,15 @@
-/**
- * These are configuration settings for the production environment.
- *
- * Do not include API secrets in this file or anywhere in your JS.
- *
- * https://reactnative.dev/docs/security#storing-sensitive-info
- */
-export default {
-  API_URL: "CHANGEME",
+import type { ConfigBaseProps } from "./config.base"
+
+const ProdConfig: Partial<ConfigBaseProps> = {
+  environment: "prod",
+  apiBaseUrl: "http://localhost:8000/api",
+
+  useMock: {
+    questions: false,
+    answers: false,
+    survey: false,
+    session: false,
+  },
 }
+
+export default ProdConfig
