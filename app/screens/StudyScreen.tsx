@@ -1,17 +1,50 @@
-import { View, Text, StyleSheet } from "react-native"
-import { useAppTheme } from "@/utils/useAppTheme"
+import { View, Text, ActivityIndicator, FlatList, StyleSheet } from "react-native"
+import { useSurveys } from "../features/survey/hooks/useSurveys"
 
 export const StudyScreen = () => {
-  const { theme } = useAppTheme()
+  const { data, isLoading, error } = useSurveys()
+
+  if (isLoading) {
+    return <ActivityIndicator style={styles.centered} />
+  }
+
+  if (error) {
+    return (
+      <View style={styles.centered}>
+        <Text>Error: {error.message}</Text>
+      </View>
+    )
+  }
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <Text style={[styles.text, { color: theme.colors.text }]}>Study Screen Placeholder</Text>
-    </View>
+    <FlatList
+      data={data}
+      keyExtractor={(item) => String(item.id)}
+      contentContainerStyle={styles.container}
+      renderItem={({ item }) => (
+        <View style={styles.card}>
+          <Text style={styles.title}>{item.name}</Text>
+          {item.short_description && <Text>{item.short_description}</Text>}
+        </View>
+      )}
+    />
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  text: { fontSize: 18, fontWeight: "500" },
+  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
+  container: { padding: 16 },
+  card: {
+    backgroundColor: "#fff",
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 12,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
 })

@@ -1,8 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { useAppSelector } from "@/store"
 import { AuthNavigator } from "./AuthNavigator"
 import { MainTabNavigator } from "./MainTabNavigator"
-import { ParticipantNavigator } from "./ParticipantNavigator"
+import { useAppSelector } from "@/store"
 
 const Stack = createNativeStackNavigator()
 

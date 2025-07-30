@@ -13,6 +13,7 @@ import * as Linking from "expo-linking"
 import * as SplashScreen from "expo-splash-screen"
 import { useInitialRootStore } from "./models"
 import { RoleNavigator, useNavigationPersistence } from "./navigators"
+import { BootGate } from "./components/BootGate"
 import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
 import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
@@ -85,7 +86,7 @@ export function App() {
                   initialState={initialNavigationState}
                   onStateChange={onNavigationStateChange}
                 >
-                  <RoleNavigator />
+                  <BootGate />
                 </NavigationContainer>
               </ThemeContext.Provider>
             </QueryClientProvider>

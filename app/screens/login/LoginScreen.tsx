@@ -50,8 +50,6 @@ export const LoginScreen = () => {
       />
 
       <View style={themed($card)}>
-        <Text style={themed($heading)}>Welcome Back</Text>
-
         <TextInput
           placeholder="Email"
           placeholderTextColor={colors.textDim}

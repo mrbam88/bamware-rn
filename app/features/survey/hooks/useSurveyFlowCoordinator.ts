@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native"
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { useSurveyFetcher } from "./useSurveyFetcher"
 import { useSurveyState } from "./useSurveyState"
+import { submitSurveyAnswers } from "../api/submitSurveyAnswers"
 import type { Question } from "../types"
 
 type AppStackParamList = {
@@ -37,10 +38,15 @@ export const useSurveyFlowCoordinator = () => {
     if (canGoBack) setCurrentIndex(currentIndex - 1)
   }
 
-  const handleFinish = () => {
-    console.log("Submitted survey:", answers)
-    resetSurvey()
-    navigation.navigate("Dashboard")
+  const handleFinish = async () => {
+    try {
+      console.log("Submitting answers:", answers)
+      await submitSurveyAnswers(answers)
+      resetSurvey()
+      navigation.navigate("Dashboard")
+    } catch (err) {
+      console.error("Failed to submit survey:", err)
+    }
   }
 
   return {

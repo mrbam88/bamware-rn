@@ -1,17 +1,10 @@
 .
-├── .eslintignore
-├── .eslintrc.js
-├── .gitignore
-├── .prettierignore
-├── .prettierrc
-├── .vscode
-│   └── settings.json
 ├── app
-│   ├── .DS_Store
 │   ├── app.tsx
 │   ├── AppProvider.tsx
 │   ├── components
 │   │   ├── AutoImage.tsx
+│   │   ├── BootGate.tsx
 │   │   ├── button
 │   │   │   ├── __test__
 │   │   │   └── Button.tsx
@@ -54,6 +47,7 @@
 │   │   ├── auth
 │   │   │   ├── __test__
 │   │   │   ├── loginApi.ts
+│   │   │   ├── mock
 │   │   │   ├── session.ts
 │   │   │   └── sessionStorage.ts
 │   │   └── survey
@@ -95,17 +89,22 @@
 │   │   ├── AdminNavigator.tsx
 │   │   ├── AppDrawerNavigator.tsx
 │   │   ├── AppNavigator.tsx
+│   │   ├── AuthNavigator.tsx
 │   │   ├── CustomDrawerContent.tsx
 │   │   ├── index.ts
+│   │   ├── MainTabNavigator.tsx
 │   │   ├── matchers.ts
 │   │   ├── navigationUtilities.ts
 │   │   ├── ParticipantNavigator.tsx
 │   │   ├── ResearcherNavigator.tsx
+│   │   ├── RoleNavigator.tsx
 │   │   ├── roleRoutingPolicy.ts
+│   │   ├── SurveyStackNavigator.tsx
 │   │   ├── TabNavigator.tsx
 │   │   └── test.mmd
 │   ├── screens
 │   │   ├── AdminDashboardScreen.tsx
+│   │   ├── DebugQuestionScreen.tsx
 │   │   ├── ErrorScreen
 │   │   │   ├── ErrorBoundary.tsx
 │   │   │   └── ErrorDetails.tsx
@@ -116,10 +115,12 @@
 │   │   │   ├── ParticipantLoginScreen.tsx
 │   │   │   └── PinInput.tsx
 │   │   ├── NoAccessScreen.tsx
+│   │   ├── ProfileScreen.tsx
 │   │   ├── ResearchDashboardScreen.tsx
 │   │   ├── settings
 │   │   │   ├── __test__
 │   │   │   └── SettingScreen.tsx
+│   │   ├── StudyScreen.tsx
 │   │   └── welcome
 │   │       ├── __test__
 │   │       └── WelcomeScreen.tsx
@@ -140,6 +141,12 @@
 │   │   ├── styles.ts
 │   │   ├── timing.ts
 │   │   └── typography.ts
+│   ├── types
+│   │   ├── index.ts
+│   │   ├── navigation.ts
+│   │   ├── question.ts
+│   │   ├── session.ts
+│   │   └── survey.ts
 │   └── utils
 │       ├── __test__
 │       │   ├── actExample.test.tsx
@@ -292,254 +299,6 @@
 │       └── splash-screen
 │           └── logo.png
 ├── index.tsx
-├── ios
-│   ├── .gitignore
-│   ├── .xcode.env
-│   ├── .xcode.env.local
-│   ├── Podfile
-│   ├── Podfile.lock
-│   ├── Podfile.properties.json
-│   ├── Pods
-│   │   ├── boost
-│   │   │   ├── boost
-│   │   │   ├── LICENSE_1_0.txt
-│   │   │   └── README.md
-│   │   ├── DoubleConversion
-│   │   │   ├── double-conversion
-│   │   │   ├── LICENSE
-│   │   │   └── README
-│   │   ├── fmt
-│   │   │   ├── include
-│   │   │   ├── LICENSE.rst
-│   │   │   ├── README.rst
-│   │   │   └── src
-│   │   ├── glog
-│   │   │   ├── COPYING
-│   │   │   ├── README
-│   │   │   ├── README.windows
-│   │   │   └── src
-│   │   ├── Headers
-│   │   │   ├── Private
-│   │   │   └── Public
-│   │   ├── hermes-engine
-│   │   │   ├── destroot
-│   │   │   └── LICENSE
-│   │   ├── hermes-engine-artifacts
-│   │   │   ├── hermes-ios-0.76.7-debug.tar.gz
-│   │   │   └── hermes-ios-0.76.7-release.tar.gz
-│   │   ├── Local Podspecs
-│   │   │   ├── boost.podspec.json
-│   │   │   ├── DoubleConversion.podspec.json
-│   │   │   ├── EXConstants.podspec.json
-│   │   │   ├── Expo.podspec.json
-│   │   │   ├── ExpoAsset.podspec.json
-│   │   │   ├── ExpoFileSystem.podspec.json
-│   │   │   ├── ExpoFont.podspec.json
-│   │   │   ├── ExpoKeepAwake.podspec.json
-│   │   │   ├── ExpoLinking.podspec.json
-│   │   │   ├── ExpoLocalization.podspec.json
-│   │   │   ├── ExpoModulesCore.podspec.json
-│   │   │   ├── ExpoSplashScreen.podspec.json
-│   │   │   ├── ExpoSystemUI.podspec.json
-│   │   │   ├── FBLazyVector.podspec.json
-│   │   │   ├── fmt.podspec.json
-│   │   │   ├── glog.podspec.json
-│   │   │   ├── hermes-engine.podspec.json
-│   │   │   ├── RCT-Folly.podspec.json
-│   │   │   ├── RCTDeprecation.podspec.json
-│   │   │   ├── RCTRequired.podspec.json
-│   │   │   ├── RCTTypeSafety.podspec.json
-│   │   │   ├── React-callinvoker.podspec.json
-│   │   │   ├── React-Core.podspec.json
-│   │   │   ├── React-CoreModules.podspec.json
-│   │   │   ├── React-cxxreact.podspec.json
-│   │   │   ├── React-debug.podspec.json
-│   │   │   ├── React-defaultsnativemodule.podspec.json
-│   │   │   ├── React-domnativemodule.podspec.json
-│   │   │   ├── React-Fabric.podspec.json
-│   │   │   ├── React-FabricComponents.podspec.json
-│   │   │   ├── React-FabricImage.podspec.json
-│   │   │   ├── React-featureflags.podspec.json
-│   │   │   ├── React-featureflagsnativemodule.podspec.json
-│   │   │   ├── React-graphics.podspec.json
-│   │   │   ├── React-hermes.podspec.json
-│   │   │   ├── React-idlecallbacksnativemodule.podspec.json
-│   │   │   ├── React-ImageManager.podspec.json
-│   │   │   ├── React-jserrorhandler.podspec.json
-│   │   │   ├── React-jsi.podspec.json
-│   │   │   ├── React-jsiexecutor.podspec.json
-│   │   │   ├── React-jsinspector.podspec.json
-│   │   │   ├── React-jsitracing.podspec.json
-│   │   │   ├── React-logger.podspec.json
-│   │   │   ├── React-Mapbuffer.podspec.json
-│   │   │   ├── React-microtasksnativemodule.podspec.json
-│   │   │   ├── react-native-keyboard-controller.podspec.json
-│   │   │   ├── react-native-mmkv.podspec.json
-│   │   │   ├── react-native-netinfo.podspec.json
-│   │   │   ├── react-native-safe-area-context.podspec.json
-│   │   │   ├── React-nativeconfig.podspec.json
-│   │   │   ├── React-NativeModulesApple.podspec.json
-│   │   │   ├── React-perflogger.podspec.json
-│   │   │   ├── React-performancetimeline.podspec.json
-│   │   │   ├── React-RCTActionSheet.podspec.json
-│   │   │   ├── React-RCTAnimation.podspec.json
-│   │   │   ├── React-RCTAppDelegate.podspec.json
-│   │   │   ├── React-RCTBlob.podspec.json
-│   │   │   ├── React-RCTFabric.podspec.json
-│   │   │   ├── React-RCTImage.podspec.json
-│   │   │   ├── React-RCTLinking.podspec.json
-│   │   │   ├── React-RCTNetwork.podspec.json
-│   │   │   ├── React-RCTSettings.podspec.json
-│   │   │   ├── React-RCTText.podspec.json
-│   │   │   ├── React-RCTVibration.podspec.json
-│   │   │   ├── React-rendererconsistency.podspec.json
-│   │   │   ├── React-rendererdebug.podspec.json
-│   │   │   ├── React-rncore.podspec.json
-│   │   │   ├── React-RuntimeApple.podspec.json
-│   │   │   ├── React-RuntimeCore.podspec.json
-│   │   │   ├── React-runtimeexecutor.podspec.json
-│   │   │   ├── React-RuntimeHermes.podspec.json
-│   │   │   ├── React-runtimescheduler.podspec.json
-│   │   │   ├── React-timing.podspec.json
-│   │   │   ├── React-utils.podspec.json
-│   │   │   ├── React.podspec.json
-│   │   │   ├── ReactCodegen.podspec.json
-│   │   │   ├── ReactCommon.podspec.json
-│   │   │   ├── RNCPicker.podspec.json
-│   │   │   ├── RNFlashList.podspec.json
-│   │   │   ├── RNGestureHandler.podspec.json
-│   │   │   ├── RNReanimated.podspec.json
-│   │   │   ├── RNScreens.podspec.json
-│   │   │   ├── RNVectorIcons.podspec.json
-│   │   │   └── Yoga.podspec.json
-│   │   ├── Manifest.lock
-│   │   ├── Pods.xcodeproj
-│   │   │   ├── project.pbxproj
-│   │   │   └── xcuserdata
-│   │   ├── RCT-Folly
-│   │   │   ├── folly
-│   │   │   ├── LICENSE
-│   │   │   └── README.md
-│   │   ├── SocketRocket
-│   │   │   ├── LICENSE
-│   │   │   ├── LICENSE-examples
-│   │   │   ├── README.md
-│   │   │   └── SocketRocket
-│   │   └── Target Support Files
-│   │       ├── boost
-│   │       ├── DoubleConversion
-│   │       ├── EXConstants
-│   │       ├── Expo
-│   │       ├── ExpoAsset
-│   │       ├── ExpoFileSystem
-│   │       ├── ExpoFont
-│   │       ├── ExpoKeepAwake
-│   │       ├── ExpoLinking
-│   │       ├── ExpoLocalization
-│   │       ├── ExpoModulesCore
-│   │       ├── ExpoSplashScreen
-│   │       ├── ExpoSystemUI
-│   │       ├── FBLazyVector
-│   │       ├── fmt
-│   │       ├── glog
-│   │       ├── hermes-engine
-│   │       ├── Pods-rnbamware
-│   │       ├── RCT-Folly
-│   │       ├── RCTDeprecation
-│   │       ├── RCTRequired
-│   │       ├── RCTTypeSafety
-│   │       ├── React
-│   │       ├── React-callinvoker
-│   │       ├── React-Core
-│   │       ├── React-CoreModules
-│   │       ├── React-cxxreact
-│   │       ├── React-debug
-│   │       ├── React-defaultsnativemodule
-│   │       ├── React-domnativemodule
-│   │       ├── React-Fabric
-│   │       ├── React-FabricComponents
-│   │       ├── React-FabricImage
-│   │       ├── React-featureflags
-│   │       ├── React-featureflagsnativemodule
-│   │       ├── React-graphics
-│   │       ├── React-hermes
-│   │       ├── React-idlecallbacksnativemodule
-│   │       ├── React-ImageManager
-│   │       ├── React-jserrorhandler
-│   │       ├── React-jsi
-│   │       ├── React-jsiexecutor
-│   │       ├── React-jsinspector
-│   │       ├── React-jsitracing
-│   │       ├── React-logger
-│   │       ├── React-Mapbuffer
-│   │       ├── React-microtasksnativemodule
-│   │       ├── react-native-keyboard-controller
-│   │       ├── react-native-mmkv
-│   │       ├── react-native-netinfo
-│   │       ├── react-native-safe-area-context
-│   │       ├── React-nativeconfig
-│   │       ├── React-NativeModulesApple
-│   │       ├── React-perflogger
-│   │       ├── React-performancetimeline
-│   │       ├── React-RCTActionSheet
-│   │       ├── React-RCTAnimation
-│   │       ├── React-RCTAppDelegate
-│   │       ├── React-RCTBlob
-│   │       ├── React-RCTFabric
-│   │       ├── React-RCTImage
-│   │       ├── React-RCTLinking
-│   │       ├── React-RCTNetwork
-│   │       ├── React-RCTSettings
-│   │       ├── React-RCTText
-│   │       ├── React-RCTVibration
-│   │       ├── React-rendererconsistency
-│   │       ├── React-rendererdebug
-│   │       ├── React-rncore
-│   │       ├── React-RuntimeApple
-│   │       ├── React-RuntimeCore
-│   │       ├── React-runtimeexecutor
-│   │       ├── React-RuntimeHermes
-│   │       ├── React-runtimescheduler
-│   │       ├── React-timing
-│   │       ├── React-utils
-│   │       ├── ReactCodegen
-│   │       ├── ReactCommon
-│   │       ├── RNCPicker
-│   │       ├── RNFlashList
-│   │       ├── RNGestureHandler
-│   │       ├── RNReanimated
-│   │       ├── RNScreens
-│   │       ├── RNVectorIcons
-│   │       ├── SocketRocket
-│   │       └── Yoga
-│   ├── rnbamware
-│   │   ├── AppDelegate.h
-│   │   ├── AppDelegate.mm
-│   │   ├── Images.xcassets
-│   │   │   ├── AppIcon.appiconset
-│   │   │   ├── Contents.json
-│   │   │   ├── SplashScreenBackground.colorset
-│   │   │   └── SplashScreenLogo.imageset
-│   │   ├── Info.plist
-│   │   ├── main.m
-│   │   ├── noop-file.swift
-│   │   ├── PrivacyInfo.xcprivacy
-│   │   ├── rnbamware-Bridging-Header.h
-│   │   ├── rnbamware.entitlements
-│   │   ├── SplashScreen.storyboard
-│   │   └── Supporting
-│   │       └── Expo.plist
-│   ├── rnbamware.xcodeproj
-│   │   ├── project.pbxproj
-│   │   ├── project.xcworkspace
-│   │   │   ├── contents.xcworkspacedata
-│   │   │   └── xcshareddata
-│   │   └── xcshareddata
-│   │       └── xcschemes
-│   └── rnbamware.xcworkspace
-│       ├── contents.xcworkspacedata
-│       └── xcshareddata
-│           └── swiftpm
 ├── jest.config.js
 ├── jest.setup.env.js
 ├── metro.config.js
@@ -562,4 +321,4 @@
 ├── types.zip
 └── yarn.lock
 
-191 directories, 372 files
+67 directories, 255 files

@@ -1,0 +1,15 @@
+{
+  "tokens": {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmxleGNvYS50ZXN0K3Byb2dyYW1hZG1pbjU1QGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6InVzZXIiLCJpc19pbnRlcm5hbCI6dHJ1ZSwic3BvbnNvcl9pZCI6bnVsbCwicmVxdWlyZXNfcGFzc3dvcmRfY2hhbmdlIjpmYWxzZSwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImV4cCI6MTc1MzkwNjg5NCwiaWF0IjoxNzUzOTAzMjk0LCJqdGkiOiJmODg0ODM0NC04YWMxLTRiY2MtYjkzMi1kZmFiZmU3ZjNkMDgifQ.VVjjZ3_sx7X9B3fvHSLYTZFK1QqHvzQuZhCt_bMqyRQ",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmxleGNvYS50ZXN0K3Byb2dyYW1hZG1pbjU1QGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6InVzZXIiLCJpc19pbnRlcm5hbCI6dHJ1ZSwic3BvbnNvcl9pZCI6bnVsbCwicmVxdWlyZXNfcGFzc3dvcmRfY2hhbmdlIjpmYWxzZSwidG9rZW5fdHlwZSI6InJlZnJlc2giLCJleHAiOjE3NTM5ODk2OTQsImlhdCI6MTc1MzkwMzI5NCwianRpIjoiMTNjYTNiOTEtOGE2NC00MTYzLTk0OWYtMWE1YjhkNTczMGExIn0.RRd8bFJs9u4EbMfMm3lZmGQhBSF86SXB_GSg_-8tgb4"
+  },
+  "user": {
+    "email": "flexcoa.test+programadmin55@gmail.com",
+    "is_internal": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "role": "Program Admin",
+    "requires_password_change": false
+  },
+  "user_type": "user"
+}

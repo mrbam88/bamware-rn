@@ -38,7 +38,6 @@ export const SurveyScreen = () => {
         answers={answers}
         updateAnswer={updateAnswer}
       />
-
       <View style={styles.buttonRow}>
         <Button
           title={isLastScreen ? "Finish" : "Next"}

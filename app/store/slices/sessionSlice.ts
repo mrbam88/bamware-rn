@@ -6,8 +6,11 @@ export interface Session {
   user: {
     email: string
     role: string
-    permissions: string[]
-    featureFlags: string[]
+    isInternal?: boolean
+    isSuperuser?: boolean
+    isStaff?: boolean
+    permissions?: string[]
+    featureFlags?: string[]
   }
 }
 

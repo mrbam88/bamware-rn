@@ -2,7 +2,7 @@ import { AdminNavigator } from "./AdminNavigator"
 import { ParticipantNavigator } from "./ParticipantNavigator"
 import { ResearcherNavigator } from "./ResearcherNavigator"
 import { NoAccessScreen } from "@/screens/NoAccessScreen"
-import { Session } from "@/store/slices/sessionSlice"
+import type { Session } from "@/types/session"
 
 export const roleRoutingPolicy = [
   {
