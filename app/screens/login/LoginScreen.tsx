@@ -32,7 +32,7 @@ export const LoginScreen = () => {
       const session = await loginApi({ email, password })
       await saveSessionToStorage(session)
       dispatch(setSession(session))
-      resetRoot()
+      //resetRoot()
     } catch (err: any) {
       console.error("Login error:", err)
       setError(err.message ?? "Login failed.")

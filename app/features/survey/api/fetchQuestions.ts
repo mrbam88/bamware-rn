@@ -6,7 +6,7 @@ import Config from "@/config"
 export async function fetchQuestions(): Promise<Question[]> {
   const token = await getAccessToken()
 
-  const res = await fetch(`${Config.apiBaseUrl}/questions/`, {
+  const res = await fetch(`${Config.apiBaseUrl}/questions/?limit=25&offset=0`, {
     headers: {
       "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",

@@ -36,8 +36,12 @@ const linking = {
   config: {
     screens: {
       Welcome: "welcome",
-      AdminDashboard: "admin",
-      SurveyTaking: "survey",
+      Auth: "auth",
+      ParticipantFlow: {
+        screens: {
+          SurveyDetail: "survey/:surveyId",
+        },
+      },
     },
   },
 }

@@ -57,10 +57,6 @@ export function SurveyScreenRenderer({
         },
       ]}
     >
-      {current && (
-        <SurveyInfo questionIndex={currentIndex} totalQuestions={total} question={current} />
-      )}
-
       <View style={[styles.progressTrack, { backgroundColor: colors.separator }]}>
         <View
           style={[
@@ -70,12 +66,14 @@ export function SurveyScreenRenderer({
         />
       </View>
 
+      {current && (
+        <SurveyInfo questionIndex={currentIndex} totalQuestions={total} question={current} />
+      )}
+
       <View style={[styles.card, { backgroundColor: colors.cardBackground }]}>
         <TouchableOpacity onPress={onClose} style={styles.closeButton} accessibilityRole="button">
           <Text style={[styles.closeText, { color: colors.text }]}>X</Text>
         </TouchableOpacity>
-
-        <Text style={[styles.title, { color: colors.textDim }]}>Question {currentIndex + 1}</Text>
 
         <Text style={[styles.prompt, { color: colors.text }]}>{current.text}</Text>
 

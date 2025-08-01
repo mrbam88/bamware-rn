@@ -7,7 +7,7 @@ export const ParticipantDashboardScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to the Daily Wellness Survey</Text>
-      <Button title="Start Survey" onPress={() => navigation.navigate("Survey")} />
+      <Button title="Start Survey" onPress={() => navigation.navigate("SurveyList")} />
     </View>
   )
 }

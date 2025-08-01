@@ -17,7 +17,7 @@ export interface ConfigBaseProps {
 }
 
 const BaseConfig: ConfigBaseProps = {
-  environment: "dev", // will be overridden
+  environment: "dev", // overridden in config.{env}.ts
 
   persistNavigation: "dev",
   catchErrors: "always",

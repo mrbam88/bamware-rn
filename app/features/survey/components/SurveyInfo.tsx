@@ -16,8 +16,14 @@ export const SurveyInfo = ({ questionIndex, totalQuestions, question }: Props) =
   if (!question?.survey) return null
   const { survey } = question
 
+  const progressPercent = ((questionIndex + 1) / totalQuestions) * 100
+
   return (
     <View style={styles.wrapper}>
+      <View style={[styles.progressTrack, { backgroundColor: colors.separator }]}>
+        <View style={[styles.progressFill, { backgroundColor: colors.tint, width: `${50}%` }]} />
+      </View>
+
       <Text style={[styles.stepLabel, { color: colors.textDim }]}>
         Question {questionIndex + 1} of {totalQuestions}
       </Text>
@@ -51,4 +57,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
+  progressTrack: {
+    height: 6,
+    width: "90%",
+    borderRadius: 3,
+    overflow: "hidden",
+    marginTop: 12,
+    marginBottom: 24,
+  } as ViewStyle,
+
+  progressFill: {
+    height: 6,
+    borderRadius: 3,
+  } as ViewStyle,
 })

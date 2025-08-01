@@ -1,21 +1,36 @@
-import { Survey } from "@/types/survey"
 import { getAccessToken } from "@/features/auth/sessionStorage"
-
-const BASE_URL = "https://uat.api.flexcoa.com/api"
+import type { Survey } from "../../../types/survey"
+import Config from "@/config"
 
 export async function fetchSurveys(): Promise<Survey[]> {
   const token = await getAccessToken()
-  const res = await fetch(`${BASE_URL}/surveys/`, {
+
+  const res = await fetch(`${Config.apiBaseUrl}/surveys/`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "Accept": "application/json",
     },
   })
 
-  if (!res.ok) {
-    const error = await res.text()
-    throw new Error(`Survey fetch failed: ${error}`)
+  const text = await res.text()
+  let parsed
+
+  try {
+    parsed = JSON.parse(text)
+  } catch {
+    throw new Error("Invalid JSON in response")
   }
 
-  const data = await res.json()
-  return data.results as Survey[]
+  if (!res.ok || parsed?.error || parsed?.detail) {
+    const message = parsed?.detail || parsed?.error || `Error ${res.status}`
+    throw new Error(`Survey fetch failed: ${message}`)
+  }
+
+  const results = parsed?.results ?? parsed
+  if (!Array.isArray(results)) {
+    throw new Error("Invalid API response shape")
+  }
+
+  return results as Survey[]
 }
