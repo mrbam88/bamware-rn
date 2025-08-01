@@ -1,3 +1,5 @@
+// app/features/survey/components/SurveyScreenRenderer.tsx
+
 import {
   View,
   Text,
@@ -57,6 +59,8 @@ export function SurveyScreenRenderer({
         },
       ]}
     >
+      <SurveyInfo questionIndex={currentIndex} totalQuestions={total} question={current} />
+
       <View style={[styles.progressTrack, { backgroundColor: colors.separator }]}>
         <View
           style={[
@@ -66,23 +70,21 @@ export function SurveyScreenRenderer({
         />
       </View>
 
-      {current && (
-        <SurveyInfo questionIndex={currentIndex} totalQuestions={total} question={current} />
-      )}
-
       <View style={[styles.card, { backgroundColor: colors.cardBackground }]}>
         <TouchableOpacity onPress={onClose} style={styles.closeButton} accessibilityRole="button">
           <Text style={[styles.closeText, { color: colors.text }]}>X</Text>
         </TouchableOpacity>
 
-        <Text style={[styles.prompt, { color: colors.text }]}>{current.text}</Text>
+        <View style={styles.cardContent}>
+          <Text style={[styles.prompt, { color: colors.text }]}>{current.text}</Text>
 
-        <View style={styles.inputWrapper}>
-          <QuestionRenderer
-            question={current}
-            answer={answers[current.id]}
-            onAnswerChange={(value) => updateAnswer(current.id, value)}
-          />
+          <View style={styles.inputWrapper}>
+            <QuestionRenderer
+              question={current}
+              answer={answers[current.id]}
+              onAnswerChange={(value) => updateAnswer(current.id, value)}
+            />
+          </View>
         </View>
 
         <View style={styles.controls}>
@@ -127,7 +129,6 @@ const styles = StyleSheet.create({
     width: "90%",
     borderRadius: 3,
     overflow: "hidden",
-    marginTop: 12,
     marginBottom: 24,
   } as ViewStyle,
 
@@ -145,9 +146,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 3 },
-    alignItems: "center",
-    gap: 16,
     minHeight: 440,
+    flexDirection: "column",
+    justifyContent: "space-between",
   } as ViewStyle,
 
   closeButton: {
@@ -161,15 +162,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
   } as TextStyle,
 
-  title: {
-    fontSize: 14,
-    fontWeight: "600",
-  } as TextStyle,
+  cardContent: {
+    flex: 1,
+    justifyContent: "flex-start",
+    paddingTop: 32,
+  } as ViewStyle,
 
   prompt: {
     fontSize: 20,
     fontWeight: "700",
     textAlign: "center",
+    marginBottom: 16,
   } as TextStyle,
 
   inputWrapper: {

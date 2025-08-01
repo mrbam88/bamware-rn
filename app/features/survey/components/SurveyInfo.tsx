@@ -1,3 +1,5 @@
+// app/features/survey/components/SurveyInfo.tsx
+
 import { View, Text, StyleSheet } from "react-native"
 import type { Question } from "../../../types/question"
 import { useAppTheme } from "@/utils/useAppTheme"
@@ -13,26 +15,33 @@ export const SurveyInfo = ({ questionIndex, totalQuestions, question }: Props) =
     theme: { colors },
   } = useAppTheme()
 
-  if (!question?.survey) return null
-  const { survey } = question
-
-  const progressPercent = ((questionIndex + 1) / totalQuestions) * 100
+  const progress = ((questionIndex + 1) / totalQuestions) * 100
+  const title = question?.survey?.name || "Survey"
+  const description = question?.survey?.short_description || ""
 
   return (
     <View style={styles.wrapper}>
-      <View style={[styles.progressTrack, { backgroundColor: colors.separator }]}>
-        <View style={[styles.progressFill, { backgroundColor: colors.tint, width: `${50}%` }]} />
-      </View>
+      <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
+
+      {description.length > 0 && (
+        <Text style={[styles.description, { color: colors.textDim }]}>{description}</Text>
+      )}
 
       <Text style={[styles.stepLabel, { color: colors.textDim }]}>
         Question {questionIndex + 1} of {totalQuestions}
       </Text>
-      <Text style={[styles.title, { color: colors.text }]}>{survey.name}</Text>
-      {!!survey.short_description && (
-        <Text style={[styles.description, { color: colors.textDim }]}>
-          {survey.short_description}
-        </Text>
-      )}
+
+      <View style={[styles.progressTrack, { backgroundColor: colors.separator }]}>
+        <View
+          style={[
+            styles.progressFill,
+            {
+              backgroundColor: colors.tint,
+              width: `${progress}%`,
+            },
+          ]}
+        />
+      </View>
     </View>
   )
 }
@@ -44,10 +53,6 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: 16,
   },
-  stepLabel: {
-    fontSize: 14,
-    fontWeight: "500",
-  },
   title: {
     fontSize: 20,
     fontWeight: "700",
@@ -57,17 +62,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
+  stepLabel: {
+    fontSize: 14,
+    fontWeight: "500",
+    marginTop: 8,
+  },
   progressTrack: {
     height: 6,
     width: "90%",
     borderRadius: 3,
     overflow: "hidden",
-    marginTop: 12,
-    marginBottom: 24,
-  } as ViewStyle,
-
+    marginTop: 8,
+  },
   progressFill: {
     height: 6,
     borderRadius: 3,
-  } as ViewStyle,
+  },
 })
