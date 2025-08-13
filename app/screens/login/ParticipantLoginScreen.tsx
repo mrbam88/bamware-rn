@@ -28,13 +28,14 @@ export function ParticipantLoginScreen() {
   }
 
   const handleSubmit = () => {
-    if (pin.length === 4) {
-      navigation.navigate("SurveyDetail", {
-        surveyId: route.params.surveyId,
-        title: route.params.title,
-        questions: route.params.questions,
-      })
-    }
+    // if (pin.length === 4) {
+    //   navigation.navigate("SurveyDetail", {
+    //     surveyId: route.params.surveyId,
+    //     title: route.params.title,
+    //     questions: route.params.questions,
+    //   })
+    // }
+    console.log("HandleSubmit!!")
   }
 
   return (

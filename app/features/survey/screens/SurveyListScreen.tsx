@@ -1,6 +1,6 @@
 // app/features/survey/screens/SurveyListScreen.tsx
 
-import { Text, FlatList, TouchableOpacity, StyleSheet, View } from "react-native"
+import { Text, FlatList, TouchableOpacity, StyleSheet, View, ActivityIndicator } from "react-native"
 import { useSurveys } from "../hooks/useSurveys"
 import { useNavigation } from "@react-navigation/native"
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack"
@@ -13,7 +13,7 @@ export function SurveyListScreen() {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large" />
       </View>
     )
   }

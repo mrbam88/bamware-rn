@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "icon": "./assets/images/app-icon-android-legacy.png",
-      "package": "com.flexcoamobile",
+      "package": "com.vpg",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/app-icon-android-adaptive-foreground.png",
         "backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
@@ -26,7 +26,7 @@
     "ios": {
       "icon": "./assets/images/app-icon-ios.png",
       "supportsTablet": true,
-      "bundleIdentifier": "com.flexcoamobile"
+      "bundleIdentifier": "com.vpg"
     },
     "web": {
       "favicon": "./assets/images/app-icon-web-favicon.png",

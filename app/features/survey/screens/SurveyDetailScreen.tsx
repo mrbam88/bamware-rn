@@ -1,5 +1,3 @@
-// app/screens/survey/SurveyDetailScreen.tsx
-
 import { useEffect, useState } from "react"
 import { View, Text, ActivityIndicator, ScrollView, StyleSheet } from "react-native"
 import { useNavigation, useRoute } from "@react-navigation/native"
